@@ -173,7 +173,7 @@ No local paths required. `npx` downloads the repo, runs `prepare` (compiles Type
 
 With pnpm: `pnpm dlx github:MauDevVR/vrchat-udon-mcp`.
 
-**Note:** First run compiles the project and may take a while. Indexed documentation is still required — `npx` does not clone `agent-skills-vrc-udon` automatically. Run `pnpm update-docs` if you cloned the repo, or set `UDON_MCP_CONFIG` to a `config.json` with docs already synced.
+**Note:** First run compiles the project and may take a while. On first start the server automatically clones `agent-skills-vrc-udon` next to the packaged `config.json` (npx cache) and rebuilds the search index. No `UDON_MCP_CONFIG` or personal paths required. For local development, `pnpm update-docs` remains the recommended way to refresh docs.
 
 ### Option C — Global install
 

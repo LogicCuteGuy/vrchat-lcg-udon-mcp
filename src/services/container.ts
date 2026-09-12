@@ -50,9 +50,12 @@ export class ServiceContainer {
 
   /**
    * Initializes repository, builds search index, and starts file watcher.
+   * On first run (e.g. via npx), clones docs if missing and rebuilds the index.
    */
   initialize(): void {
     if (this.initialized) return;
+
+    this.ensureDocumentationPresent();
 
     this.docsRepo.load();
     this.rebuildSearchIndex();
@@ -67,6 +70,27 @@ export class ServiceContainer {
     }
 
     this.initialized = true;
+  }
+
+  /**
+   * Clones agent-skills-vrc-udon when the path is missing or empty.
+   * Errors go to stderr; startup continues so the MCP process does not crash.
+   */
+  private ensureDocumentationPresent(): void {
+    if (this.repositorySync.isPresent()) return;
+
+    console.error(
+      '[vrchat-udon-mcp] Documentation missing; cloning agent-skills-vrc-udon…',
+    );
+    const result = this.repositorySync.ensureCloned();
+    if (!result.success) {
+      console.error(`[vrchat-udon-mcp] Failed to prepare docs: ${result.message}`);
+      console.error(
+        '[vrchat-udon-mcp] Run `pnpm update-docs` in a local checkout, or ensure git is available.',
+      );
+      return;
+    }
+    console.error(`[vrchat-udon-mcp] ${result.message}`);
   }
 
   rebuildSearchIndex(): void {

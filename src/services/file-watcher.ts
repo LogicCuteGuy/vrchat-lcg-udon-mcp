@@ -1,4 +1,5 @@
-import { watch, type FSWatcher } from 'node:fs';
+import { watch } from 'node:fs';
+import type { FSWatcher } from 'node:fs';
 import type { DocsRepository } from '../repositories/docs-repository.js';
 
 export type IndexRebuildCallback = () => void;

@@ -1,6 +1,9 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import type { RepositoryConfig } from '../types/index.js';
+
+/** Max time for git clone/fetch/reset so MCP startup cannot hang forever. */
+const GIT_TIMEOUT_MS = 120_000;
 
 export interface SyncResult {
   success: boolean;
@@ -15,10 +18,37 @@ export class RepositorySync {
   constructor(private readonly config: RepositoryConfig) {}
 
   /**
+   * True when the docs path exists and contains at least one entry.
+   */
+  isPresent(): boolean {
+    if (!existsSync(this.config.path)) return false;
+    try {
+      return readdirSync(this.config.path).length > 0;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Clones the docs repo only when missing or empty. Skips pull (cheap startup).
+   * Use {@link sync} for explicit update via `pnpm update-docs`.
+   */
+  ensureCloned(): SyncResult {
+    if (this.isPresent()) {
+      return {
+        success: true,
+        action: 'none',
+        message: `Repository already present at ${this.config.path}`,
+      };
+    }
+    return this.clone();
+  }
+
+  /**
    * Ensures repository exists and is up to date.
    */
   sync(): SyncResult {
-    if (!existsSync(this.config.path)) {
+    if (!this.isPresent()) {
       return this.clone();
     }
     return this.pull();
@@ -28,8 +58,20 @@ export class RepositorySync {
     const result = spawnSync(
       'git',
       ['clone', '--branch', this.config.branch, '--depth', '1', this.config.url, this.config.path],
-      { encoding: 'utf-8', shell: process.platform === 'win32' },
+      {
+        encoding: 'utf-8',
+        shell: process.platform === 'win32',
+        timeout: GIT_TIMEOUT_MS,
+      },
     );
+
+    if (result.error) {
+      return {
+        success: false,
+        action: 'clone',
+        message: result.error.message || 'Clone failed',
+      };
+    }
 
     if (result.status !== 0) {
       return {
@@ -47,7 +89,16 @@ export class RepositorySync {
       cwd: this.config.path,
       encoding: 'utf-8',
       shell: process.platform === 'win32',
+      timeout: GIT_TIMEOUT_MS,
     });
+
+    if (fetch.error) {
+      return {
+        success: false,
+        action: 'pull',
+        message: fetch.error.message || 'Fetch failed',
+      };
+    }
 
     if (fetch.status !== 0) {
       return {
@@ -61,7 +112,16 @@ export class RepositorySync {
       cwd: this.config.path,
       encoding: 'utf-8',
       shell: process.platform === 'win32',
+      timeout: GIT_TIMEOUT_MS,
     });
+
+    if (reset.error) {
+      return {
+        success: false,
+        action: 'pull',
+        message: reset.error.message || 'Reset failed',
+      };
+    }
 
     if (reset.status !== 0) {
       return {
