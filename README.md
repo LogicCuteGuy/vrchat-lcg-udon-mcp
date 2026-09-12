@@ -45,6 +45,16 @@
 
 ## Quick start
 
+**Install into Cursor MCP config** (portable `npx` entry, merge-safe):
+
+```bash
+npx -y github:MauDevVR/vrchat-udon-mcp -- install
+```
+
+Then **Refresh MCP** in Cursor. Optional: add `--claude` for Claude Desktop.
+
+**Develop from source:**
+
 ```bash
 git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
 cd vrchat-udon-mcp
@@ -53,20 +63,7 @@ pnpm update-docs && pnpm build-index && pnpm build
 pnpm start
 ```
 
-**MCP config** (Cursor / Claude — relative paths only):
-
-```json
-{
-  "mcpServers": {
-    "vrchat-udon": {
-      "command": "node",
-      "args": ["${workspaceFolder}/dist/index.js"]
-    }
-  }
-}
-```
-
-See [docs/mcp-config.example.json](docs/mcp-config.example.json) and the language READMEs for `npx`, global install, submodule, and git dependency options.
+See [docs/mcp-config.example.json](docs/mcp-config.example.json) and the language READMEs for workspace, `npx`, global install, submodule, and git dependency options.
 
 ---
 

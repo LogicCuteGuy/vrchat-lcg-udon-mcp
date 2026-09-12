@@ -129,6 +129,16 @@ pnpm test       # Run Vitest tests
 
 ## MCP integration
 
+### One-liner install (Cursor)
+
+Writes the portable entry into `~/.cursor/mcp.json` (or `%USERPROFILE%\.cursor\mcp.json` on Windows) without removing other servers:
+
+```bash
+npx -y github:MauDevVR/vrchat-udon-mcp -- install
+```
+
+Optional: also Claude Desktop with `--claude`. Then **Refresh MCP** in Cursor.
+
 > **Do not use absolute paths** like `C:\Users\your-name\...` in MCP config.
 > They are not portable, expose your username, and break when you move the project.
 > Prefer workspace-relative paths, `npx` from GitHub, or a global install.
