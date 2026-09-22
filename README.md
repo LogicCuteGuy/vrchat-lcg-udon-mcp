@@ -1,4 +1,4 @@
-﻿```
+```
  ██╗   ██╗██████╗  ██████╗██╗  ██╗ █████╗ ████████╗    ██╗   ██╗██████╗  ██████╗ ███╗   ██╗    ███╗   ███╗ ██████╗██████╗
  ██║   ██║██╔══██╗██╔════╝██║  ██║██╔══██╗╚══██╔══╝    ██║   ██║██╔══██╗██╔═══██╗████╗  ██║    ████╗ ████║██╔════╝██╔══██╗
  ██║   ██║██████╔╝██║     ███████║███████║   ██║       ██║   ██║██║  ██║██║   ██║██╔██╗ ██║    ██╔████╔██║██║     ██████╔╝
@@ -9,12 +9,14 @@
 
 # VRChat Udon MCP
 
-[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/MauDevVR/vrchat-udon-mcp/releases)
+[![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg)](https://nodejs.org/)
 [![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-purple.svg)](https://modelcontextprotocol.io)
 
-**MCP server for VRChat UdonSharp development** — exposes the [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) knowledge base and an optional local compiler package to AI assistants via the [Model Context Protocol](https://modelcontextprotocol.io).
+**MCP server for VRChat UdonSharp development** — exposes the [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) knowledge base and [LCGUdonSharp](https://github.com/LogicCuteGuy/LCGUdonSharp) compiler support to AI assistants via the [Model Context Protocol](https://modelcontextprotocol.io).
+
+Version 2.2.0 supports LCGUdonSharp 0.3.1 and adds compiler metadata/search tools plus compiler-aware validation for interfaces, async methods, `await`, generics, and `LCGPacket`.
 
 ---
 
@@ -51,7 +53,7 @@ Set `LCG_UDONSHARP_PATH` to your local `com.logiccuteguy.lcgudonsharp` package d
 **Install into Cursor MCP config** (portable `npx` entry, merge-safe):
 
 ```bash
-npx -y github:MauDevVR/vrchat-udon-mcp -- install
+npx -y github:LogicCuteGuy/vrchat-lcg-udon-mcp -- install
 ```
 
 Then **Refresh MCP** in Cursor. Optional: add `--claude` for Claude Desktop.
@@ -59,8 +61,8 @@ Then **Refresh MCP** in Cursor. Optional: add `--claude` for Claude Desktop.
 **Develop from source:**
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install
 pnpm update-docs && pnpm build-index && pnpm build
 pnpm start
@@ -93,5 +95,4 @@ See [docs/mcp-config.example.json](docs/mcp-config.example.json) and the languag
 
 ## License
 
-[MIT](LICENSE) — Documentation and skills by [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon). MCP server by [MauDevVR](https://github.com/MauDevVR).
-LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg
+[MIT](LICENSE) — Documentation, skills, LCGUdonSharp, and MCP server by [LogicCuteGuy](https://github.com/LogicCuteGuy).

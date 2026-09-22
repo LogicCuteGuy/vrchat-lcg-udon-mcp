@@ -1,6 +1,6 @@
 # Documentation index
 
-Full guides for **vrchat-udon-mcp** in six languages:
+Full guides for [**vrchat-lcg-udon-mcp 2.2.0**](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp), with LCGUdonSharp 0.3.1 support, in six languages:
 
 | Language | File |
 |----------|------|
@@ -27,3 +27,5 @@ pnpm build-index    # rebuild search index
 ```
 
 The clone lands in `./agent-skills-vrc-lcg-udon` by default (configurable in `config.json`).
+
+Set `LCG_UDONSHARP_PATH` to a local `com.logiccuteguy.lcgudonsharp` package to enable the `compiler_info` and `search_compiler` tools.

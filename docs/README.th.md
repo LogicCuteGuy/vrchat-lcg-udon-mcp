@@ -29,6 +29,7 @@
 ## คุณสมบัติ
 
 - **เครื่องมือ MCP 20 ตัว** ครอบคลุมคลังความรู้และแพ็กเกจคอมไพเลอร์เฉพาะที่ (ไม่บังคับ)
+- รองรับ [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp) พร้อมการตรวจสอบ interface, เมธอด async, `await`, generic และ `LCGPacket`
 - **ทรัพยากร MCP แบบไดนามิก** — สกิล กฎ เช็ตชีต เทมเพลต เมทริกซ์ SDK
 - การทำดัชนีแบบเรียกซ้ำของ `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - MiniSearch พร้อมการจัดอันดับแบบถ่วงน้ำหนัก: หัวข้อ > ชื่อเรื่อง > เนื้อหา
@@ -52,8 +53,8 @@
 ## การติดตั้ง
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install
 pnpm update-docs    # โคลน / อัปเดต agent-skills-vrc-lcg-udon
 pnpm build-index    # สร้างดัชนีการค้นหา
@@ -140,7 +141,7 @@ pnpm test       # รันเทสต์ Vitest
 เขียน entry แบบพกพาไปที่ `~/.cursor/mcp.json` (หรือ `%USERPROFILE%\.cursor\mcp.json` บน Windows) โดยไม่ลบเซิร์ฟเวอร์อื่นออก:
 
 ```bash
-npx -y github:MauDevVR/vrchat-udon-mcp -- install
+npx -y github:LogicCuteGuy/vrchat-lcg-udon-mcp -- install
 ```
 
 เพิ่ม `--claude` เพื่อติดตั้งให้ Claude Desktop ด้วย จากนั้น **Refresh MCP** ใน Cursor
@@ -181,21 +182,21 @@ pnpm update-docs && pnpm build-index && pnpm build
   "mcpServers": {
     "vrchat-udon": {
       "command": "npx",
-      "args": ["-y", "github:MauDevVR/vrchat-udon-mcp"]
+      "args": ["-y", "github:LogicCuteGuy/vrchat-lcg-udon-mcp"]
     }
   }
 }
 ```
 
-ถ้าใช้ pnpm: `pnpm dlx github:MauDevVR/vrchat-udon-mcp`
+ถ้าใช้ pnpm: `pnpm dlx github:LogicCuteGuy/vrchat-lcg-udon-mcp`
 
 **หมายเหตุ:** ครั้งแรกจะคอมไพล์โปรเจกต์และอาจใช้เวลาพอสมควร ครั้งแรกที่เริ่มเซิร์ฟเวอร์จะโคลน `agent-skills-vrc-lcg-udon` ข้าง `config.json` ที่แพ็กไว้ (npx cache) แล้วสร้างดัชนีการค้นหาใหม่อัตโนมัติ ไม่ต้องตั้ง `UDON_MCP_CONFIG` หรือพาธส่วนตัวใด ๆ สำหรับพัฒนาในเครื่อง `pnpm update-docs` ยังเป็นวิธีที่แนะนำในการอัปเดตเอกสาร
 
 ### ตัวเลือก C — ติดตั้งทั่วทั้งระบบ (global)
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 pnpm link --global
 ```
@@ -215,8 +216,8 @@ pnpm link --global
 ### ตัวเลือก D — Git submodule ในโปรเจกต์ VRChat ของคุณ
 
 ```bash
-git submodule add https://github.com/MauDevVR/vrchat-udon-mcp.git tools/vrchat-udon-mcp
-cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
+git submodule add https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git tools/vrchat-lcg-udon-mcp
+cd tools/vrchat-lcg-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 ```
 
 ```json
@@ -224,7 +225,7 @@ cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index
   "mcpServers": {
     "vrchat-udon": {
       "command": "node",
-      "args": ["${workspaceFolder}/tools/vrchat-udon-mcp/dist/index.js"]
+      "args": ["${workspaceFolder}/tools/vrchat-lcg-udon-mcp/dist/index.js"]
     }
   }
 }
@@ -233,7 +234,7 @@ cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index
 ### ตัวเลือก E — Git dependency
 
 ```bash
-pnpm add github:MauDevVR/vrchat-udon-mcp
+pnpm add github:LogicCuteGuy/vrchat-lcg-udon-mcp
 ```
 
 ```json
@@ -338,7 +339,7 @@ MCP Tools (20)             ← อินเทอร์เฟซสำหรั�
 ## เครดิต
 
 - เอกสารและสกิล: [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
-- เซิร์ฟเวอร์ MCP: [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
+- LCGUdonSharp และเซิร์ฟเวอร์ MCP: [LogicCuteGuy](https://github.com/LogicCuteGuy)
 
 ---
 

@@ -28,7 +28,8 @@ VRChat UdonSharp 개발을 위해 [agent-skills-vrc-lcg-udon](https://github.com
 
 ## 기능
 
-- 지식 저장소 기반 **18개의 MCP 도구**
+- 지식 저장소와 선택적 로컬 컴파일러를 위한 **20개의 MCP 도구**
+- [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp) 지원 — 인터페이스, async, `await`, 제네릭, `LCGPacket` 검증
 - **동적 MCP 리소스** — skills, rules, cheatsheets, templates, SDK 매트릭스
 - `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/` 재귀 인덱싱
 - MiniSearch 가중치 검색: 제목(heading) > 타이틀 > 본문
@@ -52,8 +53,8 @@ VRChat UdonSharp 개발을 위해 [agent-skills-vrc-lcg-udon](https://github.com
 ## 설치
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install
 pnpm update-docs    # agent-skills-vrc-lcg-udon clone / 업데이트
 pnpm build-index    # 검색 인덱스 구축
@@ -73,7 +74,11 @@ pnpm build
     "path": "./agent-skills-vrc-lcg-udon",
     "branch": "dev"
   },
-  "sdkVersion": "3.10.4",
+  "compiler": {
+    "profile": "lcgudonsharp",
+    "packagePath": null
+  },
+  "sdkVersion": "3.10.5",
   "language": "ko",
   "watch": true,
   "indexPath": "./data/indexes",
@@ -95,11 +100,13 @@ pnpm build
 | `repository.url` | 소스 저장소 URL |
 | `repository.path` | 클론된 로컬 경로 |
 | `repository.branch` | 동기화할 브랜치 |
+| `compiler.profile` | 검증 프로필: `upstream` 또는 `lcgudonsharp` |
+| `compiler.packagePath` | 컴파일러 도구가 인덱싱할 선택적 로컬 패키지 |
 | `sdkVersion` | 필터용 기본 SDK 버전 |
 | `watch` | 파일 변경 시 인덱스 재구축 |
 | `indexPath` | 영속 인덱스 디렉터리 |
 
-환경 변수 `UDON_MCP_CONFIG`로 다른 설정 파일을 지정할 수 있습니다.
+다른 설정 파일은 `UDON_MCP_CONFIG`로 지정할 수 있습니다. `LCG_UDONSHARP_PATH`를 로컬 `com.logiccuteguy.lcgudonsharp` 패키지로 설정하세요. `compiler.packagePath`는 추적하지 않는 비공개 설정에서도 사용할 수 있습니다.
 
 ---
 
@@ -165,21 +172,21 @@ pnpm update-docs && pnpm build-index && pnpm build
   "mcpServers": {
     "vrchat-udon": {
       "command": "npx",
-      "args": ["-y", "github:MauDevVR/vrchat-udon-mcp"]
+      "args": ["-y", "github:LogicCuteGuy/vrchat-lcg-udon-mcp"]
     }
   }
 }
 ```
 
-pnpm: `pnpm dlx github:MauDevVR/vrchat-udon-mcp`
+pnpm: `pnpm dlx github:LogicCuteGuy/vrchat-lcg-udon-mcp`
 
-**참고:** 첫 실행은 컴파일로 시간이 걸릴 수 있습니다. 인덱싱된 문서는 별도로 필요합니다 — `npx`는 `agent-skills-vrc-lcg-udon`을 자동 clone하지 않습니다. 저장소를 clone했다면 `pnpm update-docs`를 실행하거나, 동기화된 `config.json`을 `UDON_MCP_CONFIG`로 지정하세요.
+**참고:** 첫 실행은 컴파일로 시간이 걸릴 수 있습니다. 서버는 첫 시작 시 `agent-skills-vrc-lcg-udon`을 패키지된 `config.json` 옆의 npx 캐시에 자동으로 clone하고 검색 인덱스를 재구축합니다. 로컬 개발에서는 `pnpm update-docs`를 권장합니다.
 
 ### 옵션 C — 전역 설치
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 pnpm link --global
 ```
@@ -199,8 +206,8 @@ pnpm link --global
 ### 옵션 D — VRChat 프로젝트 git 서브모듈
 
 ```bash
-git submodule add https://github.com/MauDevVR/vrchat-udon-mcp.git tools/vrchat-udon-mcp
-cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
+git submodule add https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git tools/vrchat-lcg-udon-mcp
+cd tools/vrchat-lcg-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 ```
 
 ```json
@@ -208,7 +215,7 @@ cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index
   "mcpServers": {
     "vrchat-udon": {
       "command": "node",
-      "args": ["${workspaceFolder}/tools/vrchat-udon-mcp/dist/index.js"]
+      "args": ["${workspaceFolder}/tools/vrchat-lcg-udon-mcp/dist/index.js"]
     }
   }
 }
@@ -217,7 +224,7 @@ cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index
 ### 옵션 E — git 의존성
 
 ```bash
-pnpm add github:MauDevVR/vrchat-udon-mcp
+pnpm add github:LogicCuteGuy/vrchat-lcg-udon-mcp
 ```
 
 ```json
@@ -252,6 +259,8 @@ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 | 도구 | 설명 |
 |------|------|
+| `compiler_info` | 설정된 컴파일러 패키지의 메타데이터, 대상 SDK, 기능 표시 |
+| `search_compiler` | 설정된 컴파일러의 README, 예제, C# 소스 검색 |
 | `search_documentation` | 전체 문서 키워드/퍼지 검색 |
 | `explain_topic` | 경로·제목·줄 번호 인용 설명 |
 | `list_skills` | skill 자동 탐색 |
@@ -289,6 +298,7 @@ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ```
 agent-skills-vrc-lcg-udon/     ← 정보 원천 (git clone)
+LCGUdonSharp package/           ← 선택적 로컬 컴파일러 문서와 소스
         ↓
 KnowledgeParser            ← 모든 파일 재귀 인덱싱
         ↓
@@ -297,7 +307,7 @@ DocsRepository             ← data/indexes/에 인덱스 영속화
 SearchEngine (MiniSearch)  ← 가중치 검색
 RuleParser                 ← hooks/ 및 rules/ 테이블에서 규칙 파싱
         ↓
-MCP Tools (18)             ← AI 에이전트 인터페이스
+MCP Tools (20)             ← AI 에이전트 인터페이스
 ```
 
 ---
@@ -319,7 +329,7 @@ MCP Tools (18)             ← AI 에이전트 인터페이스
 ## 크레딧
 
 - 문서 및 skills: [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
-- MCP 서버: [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
+- LCGUdonSharp 및 MCP 서버: [LogicCuteGuy](https://github.com/LogicCuteGuy)
 
 ---
 

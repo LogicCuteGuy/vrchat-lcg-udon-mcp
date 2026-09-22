@@ -28,7 +28,8 @@ Servidor [Model Context Protocol (MCP)](https://modelcontextprotocol.io) que exp
 
 ## Características
 
-- **18 herramientas MCP** impulsadas por el repositorio de conocimiento
+- **20 herramientas MCP** para el repositorio de conocimiento y un compilador local opcional
+- Compatibilidad con [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp), incluida validación de interfaces, async, `await`, genéricos y `LCGPacket`
 - **Recursos MCP dinámicos** (skills, rules, cheatsheets, templates, matriz SDK)
 - Indexación recursiva de `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - Búsqueda MiniSearch con ranking: encabezado > título > cuerpo
@@ -52,8 +53,8 @@ Servidor [Model Context Protocol (MCP)](https://modelcontextprotocol.io) que exp
 ## Instalación
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install
 pnpm update-docs    # Clona/actualiza agent-skills-vrc-lcg-udon
 pnpm build-index    # Construye el índice de búsqueda
@@ -73,7 +74,11 @@ Edita `config.json` en la raíz del proyecto:
     "path": "./agent-skills-vrc-lcg-udon",
     "branch": "dev"
   },
-  "sdkVersion": "3.10.4",
+  "compiler": {
+    "profile": "lcgudonsharp",
+    "packagePath": null
+  },
+  "sdkVersion": "3.10.5",
   "language": "es",
   "watch": true,
   "indexPath": "./data/indexes",
@@ -95,11 +100,13 @@ Edita `config.json` en la raíz del proyecto:
 | `repository.url` | URL del repositorio fuente |
 | `repository.path` | Ruta local del repositorio clonado |
 | `repository.branch` | Rama a sincronizar |
+| `compiler.profile` | Perfil de validación: `upstream` o `lcgudonsharp` |
+| `compiler.packagePath` | Paquete local opcional indexado por las herramientas del compilador |
 | `sdkVersion` | Versión SDK por defecto para filtros |
 | `watch` | Reconstruir índice al detectar cambios en el repo |
 | `indexPath` | Carpeta del índice persistido |
 
-También puedes usar la variable de entorno `UDON_MCP_CONFIG` para apuntar a otro archivo de configuración.
+También puedes usar `UDON_MCP_CONFIG` para otro archivo. Define `LCG_UDONSHARP_PATH` con la ruta local de `com.logiccuteguy.lcgudonsharp`; `compiler.packagePath` queda disponible para configuraciones privadas no versionadas.
 
 ---
 
@@ -134,7 +141,7 @@ pnpm test       # Ejecuta tests Vitest
 Escribe la entrada portable en `~/.cursor/mcp.json` (o `%USERPROFILE%\.cursor\mcp.json` en Windows) sin borrar otros servidores:
 
 ```bash
-npx -y github:MauDevVR/vrchat-udon-mcp -- install
+npx -y github:LogicCuteGuy/vrchat-lcg-udon-mcp -- install
 ```
 
 Opcional: también Claude Desktop con `--claude`. Luego **Refresh MCP** en Cursor.
@@ -175,21 +182,21 @@ No requiere rutas locales. `npx` descarga el repo, ejecuta `prepare` (compila Ty
   "mcpServers": {
     "vrchat-udon": {
       "command": "npx",
-      "args": ["-y", "github:MauDevVR/vrchat-udon-mcp"]
+      "args": ["-y", "github:LogicCuteGuy/vrchat-lcg-udon-mcp"]
     }
   }
 }
 ```
 
-Con pnpm: `pnpm dlx github:MauDevVR/vrchat-udon-mcp` (equivalente en terminal).
+Con pnpm: `pnpm dlx github:LogicCuteGuy/vrchat-lcg-udon-mcp` (equivalente en terminal).
 
 **Nota:** La primera ejecución compila el proyecto y puede tardar. En el primer arranque el servidor clona automáticamente `agent-skills-vrc-lcg-udon` junto al `config.json` empaquetado (caché de npx) y reconstruye el índice de búsqueda. No hace falta `UDON_MCP_CONFIG` ni rutas personales. Para desarrollo local, `pnpm update-docs` sigue siendo el flujo recomendado para actualizar la documentación.
 
 ### Opción C — Instalación global
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 pnpm link --global
 ```
@@ -213,8 +220,8 @@ Alternativa sin link global: `"command": "pnpm", "args": ["exec", "vrchat-udon-m
 Añade el MCP como submódulo y usa una ruta relativa al workspace de tu mundo:
 
 ```bash
-git submodule add https://github.com/MauDevVR/vrchat-udon-mcp.git tools/vrchat-udon-mcp
-cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
+git submodule add https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git tools/vrchat-lcg-udon-mcp
+cd tools/vrchat-lcg-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 ```
 
 En la configuración MCP de tu proyecto VRChat:
@@ -224,7 +231,7 @@ En la configuración MCP de tu proyecto VRChat:
   "mcpServers": {
     "vrchat-udon": {
       "command": "node",
-      "args": ["${workspaceFolder}/tools/vrchat-udon-mcp/dist/index.js"]
+      "args": ["${workspaceFolder}/tools/vrchat-lcg-udon-mcp/dist/index.js"]
     }
   }
 }
@@ -233,7 +240,7 @@ En la configuración MCP de tu proyecto VRChat:
 ### Opción E — Dependencia git en tu proyecto
 
 ```bash
-pnpm add github:MauDevVR/vrchat-udon-mcp
+pnpm add github:LogicCuteGuy/vrchat-lcg-udon-mcp
 ```
 
 ```json
@@ -265,6 +272,8 @@ Configura un servidor MCP stdio con cualquiera de las opciones anteriores (evita
 
 | Herramienta | Descripción |
 |-------------|-------------|
+| `compiler_info` | Muestra metadatos, SDK objetivo y funciones del compilador configurado |
+| `search_compiler` | Busca en README, ejemplos y código C# del compilador configurado |
 | `search_documentation` | Búsqueda keyword/fuzzy en toda la documentación |
 | `explain_topic` | Explicación con citas (path, heading, líneas) |
 | `list_skills` | Descubre skills automáticamente |
@@ -302,6 +311,7 @@ Configura un servidor MCP stdio con cualquiera de las opciones anteriores (evita
 
 ```
 agent-skills-vrc-lcg-udon/     ← Fuente de verdad (git clone)
+LCGUdonSharp package/           ← Documentación y código del compilador local opcional
         ↓
 KnowledgeParser            ← Indexa recursivamente todos los archivos
         ↓
@@ -310,7 +320,7 @@ DocsRepository             ← Persiste índice en data/indexes/
 SearchEngine (MiniSearch)  ← Búsqueda con ranking ponderado
 RuleParser                 ← Reglas desde hooks/ y tablas rules/
         ↓
-MCP Tools (18)             ← Interfaz para el agente IA
+MCP Tools (20)             ← Interfaz para el agente IA
 ```
 
 ---
@@ -332,7 +342,7 @@ MCP Tools (18)             ← Interfaz para el agente IA
 ## Créditos
 
 - Documentación y skills: [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
-- Servidor MCP: [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
+- LCGUdonSharp y servidor MCP: [LogicCuteGuy](https://github.com/LogicCuteGuy)
 
 ---
 

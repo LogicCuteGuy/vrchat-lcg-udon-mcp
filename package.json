@@ -1,6 +1,6 @@
 {
   "name": "vrchat-udon-mcp",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "MCP server for VRChat UdonSharp - faithful interface over agent-skills-vrc-lcg-udon repository",
   "type": "module",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/MauDevVR/vrchat-udon-mcp.git"
+    "url": "https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git"
   },
   "engines": {
     "node": ">=22.0.0"
@@ -40,7 +40,7 @@
     "udonsharp",
     "model-context-protocol"
   ],
-  "author": "MauDevVR",
+  "author": "LogicCuteGuy",
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",

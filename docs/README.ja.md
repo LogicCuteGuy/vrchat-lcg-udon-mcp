@@ -28,7 +28,8 @@ VRChat の UdonSharp 開発向けに、[agent-skills-vrc-lcg-udon](https://githu
 
 ## 機能
 
-- ナレッジリポジトリ駆動の **18 個の MCP ツール**
+- ナレッジリポジトリと任意のローカルコンパイラー向け **20 個の MCP ツール**
+- [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp) 対応 — インターフェース、async、`await`、ジェネリクス、`LCGPacket` を検証
 - **動的 MCP リソース** — skills、rules、cheatsheets、templates、SDK マトリクス
 - `skills/`、`rules/`、`references/`、`templates/`、`hooks/`、`assets/` の再帰的インデックス化
 - MiniSearch による重み付き検索：見出し > タイトル > 本文
@@ -52,8 +53,8 @@ VRChat の UdonSharp 開発向けに、[agent-skills-vrc-lcg-udon](https://githu
 ## インストール
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install
 pnpm update-docs    # agent-skills-vrc-lcg-udon を clone / 更新
 pnpm build-index    # 検索インデックスを構築
@@ -73,7 +74,11 @@ pnpm build
     "path": "./agent-skills-vrc-lcg-udon",
     "branch": "dev"
   },
-  "sdkVersion": "3.10.4",
+  "compiler": {
+    "profile": "lcgudonsharp",
+    "packagePath": null
+  },
+  "sdkVersion": "3.10.5",
   "language": "ja",
   "watch": true,
   "indexPath": "./data/indexes",
@@ -95,11 +100,13 @@ pnpm build
 | `repository.url` | ソースリポジトリの URL |
 | `repository.path` | クローン先のローカルパス |
 | `repository.branch` | 同期するブランチ |
+| `compiler.profile` | 検証プロファイル：`upstream` または `lcgudonsharp` |
+| `compiler.packagePath` | コンパイラーツールが索引化する任意のローカルパッケージ |
 | `sdkVersion` | フィルタ用のデフォルト SDK バージョン |
 | `watch` | ファイル変更時にインデックスを再構築 |
 | `indexPath` | 永続化インデックスの保存先 |
 
-環境変数 `UDON_MCP_CONFIG` で別の設定ファイルを指定できます。
+別の設定ファイルには `UDON_MCP_CONFIG` を使用できます。`LCG_UDONSHARP_PATH` をローカルの `com.logiccuteguy.lcgudonsharp` パッケージに設定してください。`compiler.packagePath` は非追跡のプライベート設定でも使用できます。
 
 ---
 
@@ -165,21 +172,21 @@ pnpm update-docs && pnpm build-index && pnpm build
   "mcpServers": {
     "vrchat-udon": {
       "command": "npx",
-      "args": ["-y", "github:MauDevVR/vrchat-udon-mcp"]
+      "args": ["-y", "github:LogicCuteGuy/vrchat-lcg-udon-mcp"]
     }
   }
 }
 ```
 
-pnpm の場合：`pnpm dlx github:MauDevVR/vrchat-udon-mcp`
+pnpm の場合：`pnpm dlx github:LogicCuteGuy/vrchat-lcg-udon-mcp`
 
-**注意：** 初回はコンパイルのため時間がかかります。インデックス化されたドキュメントは別途必要です — `npx` は `agent-skills-vrc-lcg-udon` を自動 clone しません。リポジトリを clone した場合は `pnpm update-docs` を実行するか、同期済みの `config.json` を `UDON_MCP_CONFIG` で指定してください。
+**注意：** 初回はコンパイルのため時間がかかります。サーバーは初回起動時に `agent-skills-vrc-lcg-udon` をパッケージ済み `config.json` の隣（npx キャッシュ内）へ自動 clone し、検索インデックスを再構築します。ローカル開発では `pnpm update-docs` を推奨します。
 
 ### オプション C — グローバルインストール
 
 ```bash
-git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
-cd vrchat-udon-mcp
+git clone https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git
+cd vrchat-lcg-udon-mcp
 pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 pnpm link --global
 ```
@@ -199,8 +206,8 @@ pnpm link --global
 ### オプション D — VRChat プロジェクトに git サブモジュール
 
 ```bash
-git submodule add https://github.com/MauDevVR/vrchat-udon-mcp.git tools/vrchat-udon-mcp
-cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
+git submodule add https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp.git tools/vrchat-lcg-udon-mcp
+cd tools/vrchat-lcg-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index && pnpm build
 ```
 
 ```json
@@ -208,7 +215,7 @@ cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index
   "mcpServers": {
     "vrchat-udon": {
       "command": "node",
-      "args": ["${workspaceFolder}/tools/vrchat-udon-mcp/dist/index.js"]
+      "args": ["${workspaceFolder}/tools/vrchat-lcg-udon-mcp/dist/index.js"]
     }
   }
 }
@@ -217,7 +224,7 @@ cd tools/vrchat-udon-mcp && pnpm install && pnpm update-docs && pnpm build-index
 ### オプション E — git 依存関係
 
 ```bash
-pnpm add github:MauDevVR/vrchat-udon-mcp
+pnpm add github:LogicCuteGuy/vrchat-lcg-udon-mcp
 ```
 
 ```json
@@ -252,6 +259,8 @@ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 | ツール | 説明 |
 |--------|------|
+| `compiler_info` | 設定済みコンパイラーのメタデータ、対象 SDK、機能を表示 |
+| `search_compiler` | 設定済みコンパイラーの README、例、C# ソースを検索 |
 | `search_documentation` | ドキュメント全体のキーワード / ファジー検索 |
 | `explain_topic` | パス・見出し・行番号付きの説明 |
 | `list_skills` | 全 skill の自動検出 |
@@ -289,6 +298,7 @@ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ```
 agent-skills-vrc-lcg-udon/     ← ソース・オブ・トゥルース（git clone）
+LCGUdonSharp package/           ← 任意のローカルコンパイラー文書とソース
         ↓
 KnowledgeParser            ← 全ファイルを再帰的にインデックス化
         ↓
@@ -297,7 +307,7 @@ DocsRepository             ← data/indexes/ にインデックスを永続化
 SearchEngine (MiniSearch)  ← 重み付き検索
 RuleParser                 ← hooks/ と rules/ テーブルからルール解析
         ↓
-MCP Tools (18)             ← AI エージェント向けインターフェース
+MCP Tools (20)             ← AI エージェント向けインターフェース
 ```
 
 ---
@@ -319,7 +329,7 @@ MCP Tools (18)             ← AI エージェント向けインターフェー�
 ## クレジット
 
 - ドキュメントと skills: [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
-- MCP サーバー: [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
+- LCGUdonSharp と MCP サーバー: [LogicCuteGuy](https://github.com/LogicCuteGuy)
 
 ---
 
