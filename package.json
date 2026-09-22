@@ -1,7 +1,7 @@
 {
   "name": "vrchat-udon-mcp",
   "version": "2.1.0",
-  "description": "MCP server for VRChat UdonSharp - faithful interface over agent-skills-vrc-udon repository",
+  "description": "MCP server for VRChat UdonSharp - faithful interface over agent-skills-vrc-lcg-udon repository",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

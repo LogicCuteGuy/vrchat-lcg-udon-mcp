@@ -1,5 +1,5 @@
 /**
- * Syncs agent-skills-vrc-udon repository via git clone/pull.
+ * Syncs agent-skills-vrc-lcg-udon repository via git clone/pull.
  * Run: pnpm update-docs
  */
 import { join, dirname } from 'node:path';

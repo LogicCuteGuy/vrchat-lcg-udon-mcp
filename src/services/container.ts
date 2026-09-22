@@ -1,3 +1,4 @@
+import { join } from 'node:path';
 import type { AppConfig } from '../types/index.js';
 import { getConfig } from '../config/index.js';
 import { DocsRepository } from '../repositories/docs-repository.js';
@@ -10,6 +11,7 @@ import { TemplateService } from './template-service.js';
 import { DocumentationService } from './documentation-service.js';
 import { ValidationService } from './validation-service.js';
 import { SdkService } from './sdk-service.js';
+import { CompilerService } from './compiler-service.js';
 
 /**
  * Dependency injection container for all services.
@@ -25,8 +27,10 @@ export class ServiceContainer {
   readonly documentationService: DocumentationService;
   readonly validationService: ValidationService;
   readonly sdkService: SdkService;
+  readonly compilerService: CompilerService;
   readonly repositorySync: RepositorySync;
   private fileWatcher: FileWatcher | null = null;
+  private compilerFileWatcher: FileWatcher | null = null;
   private initialized = false;
 
   constructor(config?: AppConfig) {
@@ -43,8 +47,13 @@ export class ServiceContainer {
       this.rankingService,
       this.config.sdkVersion,
     );
-    this.validationService = new ValidationService(this.docsRepo);
+    this.validationService = new ValidationService(this.docsRepo, this.config.compiler.profile);
     this.sdkService = new SdkService(this.docsRepo, this.searchEngine);
+    this.compilerService = new CompilerService(
+      this.config.compiler,
+      this.config.search,
+      join(this.config.indexPath, 'compiler'),
+    );
     this.repositorySync = new RepositorySync(this.config.repository);
   }
 
@@ -59,29 +68,36 @@ export class ServiceContainer {
 
     this.docsRepo.load();
     this.rebuildSearchIndex();
+    this.compilerService.initialize();
 
     if (this.config.watch) {
-      this.fileWatcher = new FileWatcher(
-        this.config.repository.path,
-        this.docsRepo,
-        () => this.rebuildSearchIndex(),
+      this.fileWatcher = new FileWatcher(this.config.repository.path, this.docsRepo, () =>
+        this.rebuildSearchIndex(),
       );
       this.fileWatcher.start();
+
+      const compilerDocsRepo = this.compilerService.getDocsRepository();
+      if (compilerDocsRepo && this.config.compiler.packagePath) {
+        this.compilerFileWatcher = new FileWatcher(
+          this.config.compiler.packagePath,
+          compilerDocsRepo,
+          () => this.compilerService.refreshSearchIndex(),
+        );
+        this.compilerFileWatcher.start();
+      }
     }
 
     this.initialized = true;
   }
 
   /**
-   * Clones agent-skills-vrc-udon when the path is missing or empty.
+   * Clones agent-skills-vrc-lcg-udon when the path is missing or empty.
    * Errors go to stderr; startup continues so the MCP process does not crash.
    */
   private ensureDocumentationPresent(): void {
     if (this.repositorySync.isPresent()) return;
 
-    console.error(
-      '[vrchat-udon-mcp] Documentation missing; cloning agent-skills-vrc-udon…',
-    );
+    console.error('[vrchat-udon-mcp] Documentation missing; cloning agent-skills-vrc-lcg-udon…');
     const result = this.repositorySync.ensureCloned();
     if (!result.success) {
       console.error(`[vrchat-udon-mcp] Failed to prepare docs: ${result.message}`);
@@ -100,6 +116,8 @@ export class ServiceContainer {
   shutdown(): void {
     this.fileWatcher?.stop();
     this.fileWatcher = null;
+    this.compilerFileWatcher?.stop();
+    this.compilerFileWatcher = null;
   }
 }
 

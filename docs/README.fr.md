@@ -1,10 +1,10 @@
 # VRChat Udon MCP
 
-Serveur [Model Context Protocol (MCP)](https://modelcontextprotocol.io) qui expose le dépôt [agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon) comme interface MCP pour le développement UdonSharp sur VRChat.
+Serveur [Model Context Protocol (MCP)](https://modelcontextprotocol.io) qui expose le dépôt [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) comme interface MCP pour le développement UdonSharp sur VRChat.
 
-**Le dépôt `agent-skills-vrc-udon` est la seule source de vérité.** Ce MCP ne contient aucune documentation en dur : il indexe, recherche et valide dynamiquement tout le contenu du dépôt distant.
+**Le dépôt `agent-skills-vrc-lcg-udon` est la seule source de vérité.** Ce MCP ne contient aucune documentation en dur : il indexe, recherche et valide dynamiquement tout le contenu du dépôt distant.
 
-[← Page d'accueil](../README.md) · [English](README.en.md) · [Español](README.es.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+[← Page d'accueil](../README.md) · [English](README.en.md) · [Español](README.es.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [ไทย](README.th.md)
 
 ---
 
@@ -55,7 +55,7 @@ Serveur [Model Context Protocol (MCP)](https://modelcontextprotocol.io) qui expo
 git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
 cd vrchat-udon-mcp
 pnpm install
-pnpm update-docs    # Clone / met à jour agent-skills-vrc-udon
+pnpm update-docs    # Clone / met à jour agent-skills-vrc-lcg-udon
 pnpm build-index    # Construit l'index de recherche
 pnpm build
 ```
@@ -69,9 +69,9 @@ Modifiez `config.json` à la racine du projet :
 ```json
 {
   "repository": {
-    "url": "https://github.com/niaka3dayo/agent-skills-vrc-udon",
-    "path": "./agent-skills-vrc-udon",
-    "branch": "main"
+    "url": "https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon",
+    "path": "./agent-skills-vrc-lcg-udon",
+    "branch": "dev"
   },
   "sdkVersion": "3.10.4",
   "language": "fr",
@@ -106,14 +106,14 @@ La variable d'environnement `UDON_MCP_CONFIG` permet de pointer vers un autre fi
 ## Synchronisation du dépôt
 
 ```bash
-# Cloner ou mettre à jour agent-skills-vrc-udon et reconstruire l'index
+# Cloner ou mettre à jour agent-skills-vrc-lcg-udon et reconstruire l'index
 pnpm update-docs
 
 # Reconstruire l'index uniquement (sans git pull)
 pnpm build-index
 ```
 
-Le dépôt est cloné dans `./agent-skills-vrc-udon` par défaut. Les nouveaux fichiers sont indexés automatiquement, sans modification du code.
+Le dépôt est cloné dans `./agent-skills-vrc-lcg-udon` par défaut. Les nouveaux fichiers sont indexés automatiquement, sans modification du code.
 
 ---
 
@@ -173,7 +173,7 @@ Aucun chemin local requis. `npx` télécharge le dépôt, exécute `prepare` (co
 
 Avec pnpm : `pnpm dlx github:MauDevVR/vrchat-udon-mcp`.
 
-**Note :** La première exécution compile le projet et peut prendre du temps. La documentation indexée reste nécessaire — `npx` ne clone pas `agent-skills-vrc-udon` automatiquement. Lancez `pnpm update-docs` si vous avez cloné le repo, ou configurez `UDON_MCP_CONFIG` vers un `config.json` avec la doc déjà synchronisée.
+**Note :** La première exécution compile le projet et peut prendre du temps. La documentation indexée reste nécessaire — `npx` ne clone pas `agent-skills-vrc-lcg-udon` automatiquement. Lancez `pnpm update-docs` si vous avez cloné le repo, ou configurez `UDON_MCP_CONFIG` vers un `config.json` avec la doc déjà synchronisée.
 
 ### Option C — Installation globale
 
@@ -288,7 +288,7 @@ Configurez un serveur MCP stdio avec l'une des options ci-dessus (évitez les ch
 ## Architecture
 
 ```
-agent-skills-vrc-udon/     ← Source de vérité (git clone)
+agent-skills-vrc-lcg-udon/     ← Source de vérité (git clone)
         ↓
 KnowledgeParser            ← Indexe récursivement tous les fichiers
         ↓
@@ -318,7 +318,7 @@ MCP Tools (18)             ← Interface pour l'agent IA
 
 ## Crédits
 
-- Documentation et skills : [niaka3dayo/agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon)
+- Documentation et skills : [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
 - Serveur MCP : [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
 
 ---

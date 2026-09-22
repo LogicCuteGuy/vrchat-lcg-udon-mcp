@@ -26,7 +26,8 @@ export class RuleParser {
 
   private parseHookFile(doc: IndexedDocument, seen: Set<string>): ValidationRule[] {
     const rules: ValidationRule[] = [];
-    const pattern = /\$FileContent\s+-match\s+'([^']+)'[\s\S]*?\$Warnings\s*\+=\s*"\[UdonSharp\]\s*(\w+):\s*([^"]+)"/g;
+    const pattern =
+      /\$(?:FileContent|MaskedSource|FlatSource)\s+-match\s+'([^']+)'[\s\S]*?\$Warnings\s*\+=\s*"\[UdonSharp\]\s*(\w+):\s*([^"]+)"/g;
     let match: RegExpExecArray | null;
     let ruleIndex = 0;
 
@@ -131,9 +132,9 @@ export class RuleParser {
   private termToRegex(term: string): string {
     const escaped = term
       .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      .replace(/\\<T\\>/g, '<[^>]+>')
-      .replace(/\\<T,\s*K\\>/g, '<[^>]+>')
-      .replace(/\\<TKey,\s*TValue\\>/g, '<[^>]+>');
+      .replace(/<T>/g, '<[^>]+>')
+      .replace(/<T,\s*K>/g, '<[^>]+>')
+      .replace(/<TKey,\s*TValue>/g, '<[^>]+>');
     return escaped;
   }
 

@@ -19,6 +19,8 @@ import {
   SearchExamplesSchema,
   SearchBestPracticeSchema,
   SearchAntipatternSchema,
+  CompilerInfoSchema,
+  SearchCompilerSchema,
 } from '../schemas/tools.js';
 import {
   handleSearchDocumentation,
@@ -39,6 +41,8 @@ import {
   handleSearchExamples,
   handleSearchBestPractice,
   handleSearchAntipattern,
+  handleCompilerInfo,
+  handleSearchCompiler,
 } from './handlers.js';
 
 /**
@@ -46,8 +50,31 @@ import {
  */
 export function registerTools(server: McpServer, container: ServiceContainer): void {
   server.tool(
+    'compiler_info',
+    'Describe the configured UdonSharp compiler package, version, SDK target, and features',
+    CompilerInfoSchema.shape,
+    async () => ({
+      content: [{ type: 'text' as const, text: handleCompilerInfo(container) }],
+    }),
+  );
+
+  server.tool(
+    'search_compiler',
+    'Search the configured compiler package documentation and C# source',
+    SearchCompilerSchema.shape,
+    async (input) => ({
+      content: [
+        {
+          type: 'text' as const,
+          text: handleSearchCompiler(container, SearchCompilerSchema.parse(input)),
+        },
+      ],
+    }),
+  );
+
+  server.tool(
     'search_documentation',
-    'Search agent-skills-vrc-udon documentation with keyword, heading, and fuzzy matching',
+    'Search agent-skills-vrc-lcg-udon documentation with keyword, heading, and fuzzy matching',
     SearchDocumentationSchema.shape,
     async (input) => ({
       content: [
@@ -65,7 +92,10 @@ export function registerTools(server: McpServer, container: ServiceContainer): v
     ExplainTopicSchema.shape,
     async (input) => ({
       content: [
-        { type: 'text' as const, text: handleExplainTopic(container, ExplainTopicSchema.parse(input)) },
+        {
+          type: 'text' as const,
+          text: handleExplainTopic(container, ExplainTopicSchema.parse(input)),
+        },
       ],
     }),
   );
@@ -146,7 +176,10 @@ export function registerTools(server: McpServer, container: ServiceContainer): v
     GetTemplateSchema.shape,
     async (input) => ({
       content: [
-        { type: 'text' as const, text: handleGetTemplate(container, GetTemplateSchema.parse(input)) },
+        {
+          type: 'text' as const,
+          text: handleGetTemplate(container, GetTemplateSchema.parse(input)),
+        },
       ],
     }),
   );
@@ -157,7 +190,10 @@ export function registerTools(server: McpServer, container: ServiceContainer): v
     ValidateCodeSchema.shape,
     async (input) => ({
       content: [
-        { type: 'text' as const, text: handleValidateCode(container, ValidateCodeSchema.parse(input)) },
+        {
+          type: 'text' as const,
+          text: handleValidateCode(container, ValidateCodeSchema.parse(input)),
+        },
       ],
     }),
   );

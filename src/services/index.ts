@@ -8,3 +8,5 @@ export { TemplateService } from './template-service.js';
 export { DocumentationService } from './documentation-service.js';
 export { ValidationService } from './validation-service.js';
 export { SdkService } from './sdk-service.js';
+export { CompilerService } from './compiler-service.js';
+export type { CompilerInfo } from './compiler-service.js';

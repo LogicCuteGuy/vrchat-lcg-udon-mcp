@@ -196,9 +196,19 @@ export interface RepositoryConfig {
   branch: string;
 }
 
+/** Compiler behavior used by validation and compiler-specific tools. */
+export type CompilerProfile = 'upstream' | 'lcgudonsharp';
+
+/** Optional local compiler package to index alongside the Udon knowledge base. */
+export interface CompilerConfig {
+  profile: CompilerProfile;
+  packagePath: string | null;
+}
+
 /** Application configuration */
 export interface AppConfig {
   repository: RepositoryConfig;
+  compiler: CompilerConfig;
   sdkVersion: SdkVersion;
   language: string;
   watch: boolean;
@@ -219,7 +229,7 @@ export interface AppConfig {
 export interface IndexSnapshot {
   version: number;
   builtAt: string;
-  /** Relative path from project root (e.g. ./agent-skills-vrc-udon). */
+  /** Portable repositories use a relative path; external compiler indexes use an absolute path. */
   repositoryPath: string;
   documentCount: number;
   documents: IndexedDocument[];

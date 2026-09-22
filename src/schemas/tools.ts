@@ -43,6 +43,14 @@ export const GetTemplateSchema = z.object({
 export const ValidateCodeSchema = z.object({
   code: z.string().min(1).describe('UdonSharp C# code to validate'),
   sdkVersion: z.string().optional(),
+  compilerProfile: z.enum(['upstream', 'lcgudonsharp']).optional(),
+});
+
+export const CompilerInfoSchema = z.object({});
+
+export const SearchCompilerSchema = z.object({
+  query: z.string().min(1).describe('Search query for configured compiler documentation/source'),
+  limit: z.number().int().min(1).max(50).optional().default(10),
 });
 
 export const ExplainValidationSchema = z.object({
@@ -92,6 +100,8 @@ export type SearchReferenceInput = z.infer<typeof SearchReferenceSchema>;
 export type ListTemplatesInput = z.infer<typeof ListTemplatesSchema>;
 export type GetTemplateInput = z.infer<typeof GetTemplateSchema>;
 export type ValidateCodeInput = z.infer<typeof ValidateCodeSchema>;
+export type CompilerInfoInput = z.infer<typeof CompilerInfoSchema>;
+export type SearchCompilerInput = z.infer<typeof SearchCompilerSchema>;
 export type ExplainValidationInput = z.infer<typeof ExplainValidationSchema>;
 export type SdkMatrixInput = z.infer<typeof SdkMatrixSchema>;
 export type SearchSdkFeatureInput = z.infer<typeof SearchSdkFeatureSchema>;

@@ -1,10 +1,14 @@
 {
   "repository": {
-    "url": "https://github.com/niaka3dayo/agent-skills-vrc-udon",
-    "path": "./agent-skills-vrc-udon",
-    "branch": "main"
+    "url": "https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon",
+    "path": "./agent-skills-vrc-lcg-udon",
+    "branch": "dev"
   },
-  "sdkVersion": "3.10.4",
+  "compiler": {
+    "profile": "lcgudonsharp",
+    "packagePath": null
+  },
+  "sdkVersion": "3.10.5",
   "language": "es",
   "watch": true,
   "indexPath": "./data/indexes",

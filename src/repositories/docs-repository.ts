@@ -1,11 +1,4 @@
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-  readdirSync,
-  statSync,
-} from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { isAbsolute, join, relative, resolve } from 'node:path';
 import { KnowledgeParser } from '../parsers/knowledge-parser.js';
 import { RuleParser } from '../parsers/rule-parser.js';
@@ -15,7 +8,7 @@ const INDEX_VERSION = 1;
 const INDEX_FILE = 'document-index.json';
 
 /**
- * Repository for indexed documentation from agent-skills-vrc-udon.
+ * Repository for indexed documentation from agent-skills-vrc-lcg-udon.
  */
 export class DocsRepository {
   private documents: IndexedDocument[] = [];
@@ -28,6 +21,7 @@ export class DocsRepository {
   constructor(
     private readonly repoPath: string,
     private readonly indexPath: string,
+    private readonly pathStorage: 'portable' | 'absolute' = 'portable',
   ) {}
 
   /**
@@ -174,9 +168,11 @@ export class DocsRepository {
 
   /** Stores a portable relative path instead of machine-specific absolute paths. */
   private getRepositoryPathForStorage(): string {
+    if (this.pathStorage === 'absolute') return resolve(this.repoPath);
+
     const rel = relative(this.getProjectRoot(), this.repoPath).replace(/\\/g, '/');
     if (!rel || rel.startsWith('..')) {
-      return './agent-skills-vrc-udon';
+      return './agent-skills-vrc-lcg-udon';
     }
     return rel.startsWith('./') ? rel : `./${rel}`;
   }

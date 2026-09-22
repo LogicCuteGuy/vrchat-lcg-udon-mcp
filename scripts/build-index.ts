@@ -1,5 +1,5 @@
 /**
- * Rebuilds search indexes from agent-skills-vrc-udon repository.
+ * Rebuilds search indexes from agent-skills-vrc-lcg-udon repository.
  * Run: pnpm build-index
  */
 import { mkdirSync } from 'node:fs';

@@ -1,10 +1,10 @@
 # VRChat Udon MCP
 
-VRChat UdonSharp 개발을 위해 [agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon) 저장소를 [Model Context Protocol (MCP)](https://modelcontextprotocol.io)로 노출하는 서버입니다.
+VRChat UdonSharp 개발을 위해 [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) 저장소를 [Model Context Protocol (MCP)](https://modelcontextprotocol.io)로 노출하는 서버입니다.
 
-**`agent-skills-vrc-udon` 저장소가 유일한 정보 원천(single source of truth)입니다.** 이 MCP는 문서를 하드코딩하지 않으며, 저장소 콘텐츠를 동적으로 인덱싱·검색·검증합니다.
+**`agent-skills-vrc-lcg-udon` 저장소가 유일한 정보 원천(single source of truth)입니다.** 이 MCP는 문서를 하드코딩하지 않으며, 저장소 콘텐츠를 동적으로 인덱싱·검색·검증합니다.
 
-[← 메인 페이지](../README.md) · [English](README.en.md) · [Español](README.es.md) · [Français](README.fr.md) · [日本語](README.ja.md)
+[← 메인 페이지](../README.md) · [English](README.en.md) · [Español](README.es.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [ไทย](README.th.md)
 
 ---
 
@@ -55,7 +55,7 @@ VRChat UdonSharp 개발을 위해 [agent-skills-vrc-udon](https://github.com/nia
 git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
 cd vrchat-udon-mcp
 pnpm install
-pnpm update-docs    # agent-skills-vrc-udon clone / 업데이트
+pnpm update-docs    # agent-skills-vrc-lcg-udon clone / 업데이트
 pnpm build-index    # 검색 인덱스 구축
 pnpm build
 ```
@@ -69,9 +69,9 @@ pnpm build
 ```json
 {
   "repository": {
-    "url": "https://github.com/niaka3dayo/agent-skills-vrc-udon",
-    "path": "./agent-skills-vrc-udon",
-    "branch": "main"
+    "url": "https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon",
+    "path": "./agent-skills-vrc-lcg-udon",
+    "branch": "dev"
   },
   "sdkVersion": "3.10.4",
   "language": "ko",
@@ -106,14 +106,14 @@ pnpm build
 ## 저장소 동기화
 
 ```bash
-# agent-skills-vrc-udon clone/업데이트 후 인덱스 재구축
+# agent-skills-vrc-lcg-udon clone/업데이트 후 인덱스 재구축
 pnpm update-docs
 
 # 인덱스만 재구축 (git pull 없음)
 pnpm build-index
 ```
 
-기본적으로 `./agent-skills-vrc-udon`에 클론됩니다. 새 파일은 코드 변경 없이 자동 인덱싱됩니다.
+기본적으로 `./agent-skills-vrc-lcg-udon`에 클론됩니다. 새 파일은 코드 변경 없이 자동 인덱싱됩니다.
 
 ---
 
@@ -173,7 +173,7 @@ pnpm update-docs && pnpm build-index && pnpm build
 
 pnpm: `pnpm dlx github:MauDevVR/vrchat-udon-mcp`
 
-**참고:** 첫 실행은 컴파일로 시간이 걸릴 수 있습니다. 인덱싱된 문서는 별도로 필요합니다 — `npx`는 `agent-skills-vrc-udon`을 자동 clone하지 않습니다. 저장소를 clone했다면 `pnpm update-docs`를 실행하거나, 동기화된 `config.json`을 `UDON_MCP_CONFIG`로 지정하세요.
+**참고:** 첫 실행은 컴파일로 시간이 걸릴 수 있습니다. 인덱싱된 문서는 별도로 필요합니다 — `npx`는 `agent-skills-vrc-lcg-udon`을 자동 clone하지 않습니다. 저장소를 clone했다면 `pnpm update-docs`를 실행하거나, 동기화된 `config.json`을 `UDON_MCP_CONFIG`로 지정하세요.
 
 ### 옵션 C — 전역 설치
 
@@ -288,7 +288,7 @@ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 ## 아키텍처
 
 ```
-agent-skills-vrc-udon/     ← 정보 원천 (git clone)
+agent-skills-vrc-lcg-udon/     ← 정보 원천 (git clone)
         ↓
 KnowledgeParser            ← 모든 파일 재귀 인덱싱
         ↓
@@ -318,7 +318,7 @@ MCP Tools (18)             ← AI 에이전트 인터페이스
 
 ## 크레딧
 
-- 문서 및 skills: [niaka3dayo/agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon)
+- 문서 및 skills: [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
 - MCP 서버: [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
 
 ---

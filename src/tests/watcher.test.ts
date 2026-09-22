@@ -1,13 +1,10 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { join } from 'node:path';
 import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { DocsRepository } from '../repositories/docs-repository.js';
 import { FileWatcher } from '../services/file-watcher.js';
 import { SearchEngine } from '../services/search-engine.js';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('FileWatcher', () => {
   const testDir = join(tmpdir(), 'udon-mcp-watcher-test');
@@ -37,9 +34,7 @@ describe('FileWatcher', () => {
     });
     search.buildIndex(repo.getSearchChunks());
 
-    let rebuildCount = 0;
     const watcher = new FileWatcher(testDir, repo, () => {
-      rebuildCount++;
       search.buildIndex(repo.getSearchChunks());
     });
     watcher.start();

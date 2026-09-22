@@ -1,10 +1,10 @@
 # VRChat Udon MCP
 
-VRChat の UdonSharp 開発向けに、[agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon) リポジトリを [Model Context Protocol (MCP)](https://modelcontextprotocol.io) 経由で公開するサーバーです。
+VRChat の UdonSharp 開発向けに、[agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) リポジトリを [Model Context Protocol (MCP)](https://modelcontextprotocol.io) 経由で公開するサーバーです。
 
-**`agent-skills-vrc-udon` が唯一の情報源（ソース・オブ・トゥルース）です。** この MCP はドキュメントをハードコードせず、リポジトリの内容を動的にインデックス化・検索・検証します。
+**`agent-skills-vrc-lcg-udon` が唯一の情報源（ソース・オブ・トゥルース）です。** この MCP はドキュメントをハードコードせず、リポジトリの内容を動的にインデックス化・検索・検証します。
 
-[← トップページ](../README.md) · [English](README.en.md) · [Español](README.es.md) · [Français](README.fr.md) · [한국어](README.ko.md)
+[← トップページ](../README.md) · [English](README.en.md) · [Español](README.es.md) · [Français](README.fr.md) · [한국어](README.ko.md) · [ไทย](README.th.md)
 
 ---
 
@@ -55,7 +55,7 @@ VRChat の UdonSharp 開発向けに、[agent-skills-vrc-udon](https://github.co
 git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
 cd vrchat-udon-mcp
 pnpm install
-pnpm update-docs    # agent-skills-vrc-udon を clone / 更新
+pnpm update-docs    # agent-skills-vrc-lcg-udon を clone / 更新
 pnpm build-index    # 検索インデックスを構築
 pnpm build
 ```
@@ -69,9 +69,9 @@ pnpm build
 ```json
 {
   "repository": {
-    "url": "https://github.com/niaka3dayo/agent-skills-vrc-udon",
-    "path": "./agent-skills-vrc-udon",
-    "branch": "main"
+    "url": "https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon",
+    "path": "./agent-skills-vrc-lcg-udon",
+    "branch": "dev"
   },
   "sdkVersion": "3.10.4",
   "language": "ja",
@@ -106,14 +106,14 @@ pnpm build
 ## リポジトリの同期
 
 ```bash
-# agent-skills-vrc-udon を clone / 更新し、インデックスを再構築
+# agent-skills-vrc-lcg-udon を clone / 更新し、インデックスを再構築
 pnpm update-docs
 
 # インデックスのみ再構築（git pull なし）
 pnpm build-index
 ```
 
-デフォルトでは `./agent-skills-vrc-udon` にクローンされます。新規ファイルはコード変更なしで自動的にインデックス化されます。
+デフォルトでは `./agent-skills-vrc-lcg-udon` にクローンされます。新規ファイルはコード変更なしで自動的にインデックス化されます。
 
 ---
 
@@ -173,7 +173,7 @@ pnpm update-docs && pnpm build-index && pnpm build
 
 pnpm の場合：`pnpm dlx github:MauDevVR/vrchat-udon-mcp`
 
-**注意：** 初回はコンパイルのため時間がかかります。インデックス化されたドキュメントは別途必要です — `npx` は `agent-skills-vrc-udon` を自動 clone しません。リポジトリを clone した場合は `pnpm update-docs` を実行するか、同期済みの `config.json` を `UDON_MCP_CONFIG` で指定してください。
+**注意：** 初回はコンパイルのため時間がかかります。インデックス化されたドキュメントは別途必要です — `npx` は `agent-skills-vrc-lcg-udon` を自動 clone しません。リポジトリを clone した場合は `pnpm update-docs` を実行するか、同期済みの `config.json` を `UDON_MCP_CONFIG` で指定してください。
 
 ### オプション C — グローバルインストール
 
@@ -288,7 +288,7 @@ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 ## アーキテクチャ
 
 ```
-agent-skills-vrc-udon/     ← ソース・オブ・トゥルース（git clone）
+agent-skills-vrc-lcg-udon/     ← ソース・オブ・トゥルース（git clone）
         ↓
 KnowledgeParser            ← 全ファイルを再帰的にインデックス化
         ↓
@@ -318,7 +318,7 @@ MCP Tools (18)             ← AI エージェント向けインターフェー�
 
 ## クレジット
 
-- ドキュメントと skills: [niaka3dayo/agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon)
+- ドキュメントと skills: [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
 - MCP サーバー: [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
 
 ---

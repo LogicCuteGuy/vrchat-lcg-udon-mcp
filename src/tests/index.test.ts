@@ -6,7 +6,7 @@ import { DocsRepository } from '../repositories/docs-repository.js';
 import { RuleParser } from '../parsers/rule-parser.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const repoPath = join(__dirname, '../../agent-skills-vrc-udon');
+const repoPath = join(__dirname, '../../agent-skills-vrc-lcg-udon');
 const indexPath = join(__dirname, '../../data/test-indexes');
 
 describe('DocsRepository', () => {

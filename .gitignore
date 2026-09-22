@@ -12,5 +12,6 @@ coverage/
 data/indexes/
 data/cache/
 data/test-*/
+agent-skills-vrc-lcg-udon/
 agent-skills-vrc-udon/
 .cursor/

@@ -5,7 +5,7 @@ import { DocsRepository } from '../repositories/docs-repository.js';
 import { TemplateService } from '../services/template-service.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const repoPath = join(__dirname, '../../agent-skills-vrc-udon');
+const repoPath = join(__dirname, '../../agent-skills-vrc-lcg-udon');
 
 describe('TemplateService', () => {
   let service: TemplateService;

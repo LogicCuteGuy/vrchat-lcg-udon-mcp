@@ -1,6 +1,6 @@
 # Documentation index
 
-Full guides for **vrchat-udon-mcp** in five languages:
+Full guides for **vrchat-udon-mcp** in six languages:
 
 | Language | File |
 |----------|------|
@@ -9,6 +9,7 @@ Full guides for **vrchat-udon-mcp** in five languages:
 | Français | [README.fr.md](README.fr.md) |
 | 日本語 | [README.ja.md](README.ja.md) |
 | 한국어 | [README.ko.md](README.ko.md) |
+| ไทย | [README.th.md](README.th.md) |
 
 ## Additional files
 
@@ -18,11 +19,11 @@ Full guides for **vrchat-udon-mcp** in five languages:
 
 ## Updating the knowledge base
 
-The MCP reads documentation from a cloned copy of [agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon). From the project root:
+The MCP reads documentation from a cloned copy of [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon). From the project root:
 
 ```bash
 pnpm update-docs    # git clone / pull
 pnpm build-index    # rebuild search index
 ```
 
-The clone lands in `./agent-skills-vrc-udon` by default (configurable in `config.json`).
+The clone lands in `./agent-skills-vrc-lcg-udon` by default (configurable in `config.json`).

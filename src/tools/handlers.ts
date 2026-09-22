@@ -17,6 +17,7 @@ import type {
   SearchExamplesInput,
   SearchBestPracticeInput,
   SearchAntipatternInput,
+  SearchCompilerInput,
 } from '../schemas/tools.js';
 
 export function handleSearchDocumentation(
@@ -73,9 +74,7 @@ export function handleSearchReference(
     fileType: 'reference',
     limit: input.limit,
   });
-  const filtered = input.skillId
-    ? results.filter((r) => r.path.includes(input.skillId!))
-    : results;
+  const filtered = input.skillId ? results.filter((r) => r.path.includes(input.skillId!)) : results;
   return formatJson({ query: input.query, count: filtered.length, results: filtered });
 }
 
@@ -108,14 +107,34 @@ export function handleValidateCode(container: ServiceContainer, input: ValidateC
   const result = container.validationService.validate(
     input.code,
     input.sdkVersion ?? container.config.sdkVersion,
+    input.compilerProfile ?? container.config.compiler.profile,
   );
   return formatJson(result);
+}
+
+export function handleCompilerInfo(container: ServiceContainer): string {
+  return formatJson(container.compilerService.getInfo());
+}
+
+export function handleSearchCompiler(
+  container: ServiceContainer,
+  input: SearchCompilerInput,
+): string {
+  const compiler = container.compilerService.getInfo();
+  const results = container.compilerService.search(input.query, input.limit);
+  return formatJson({ compiler, query: input.query, count: results.length, results });
 }
 
 export function handleExplainValidation(
   container: ServiceContainer,
   input: ExplainValidationInput,
 ): string {
+  if (input.ruleId.startsWith('lcgudonsharp-')) {
+    const documentation =
+      container.compilerService.getDocsRepository()?.readFileContent('README.md') ?? null;
+    return formatJson({ rule: null, documentation });
+  }
+
   const explanation = container.validationService.explainValidation(input.ruleId);
   return formatJson(explanation);
 }

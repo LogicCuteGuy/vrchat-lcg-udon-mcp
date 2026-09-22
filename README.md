@@ -14,7 +14,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg)](https://nodejs.org/)
 [![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-purple.svg)](https://modelcontextprotocol.io)
 
-**MCP server for VRChat UdonSharp development** — exposes the [agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon) knowledge base to AI assistants via the [Model Context Protocol](https://modelcontextprotocol.io).
+**MCP server for VRChat UdonSharp development** — exposes the [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) knowledge base and an optional local compiler package to AI assistants via the [Model Context Protocol](https://modelcontextprotocol.io).
 
 ---
 
@@ -27,19 +27,22 @@
 | 🇫🇷 **Français** | [docs/README.fr.md](docs/README.fr.md) | Guide complet en français |
 | 🇯🇵 **日本語** | [docs/README.ja.md](docs/README.ja.md) | 日本語の完全ガイド |
 | 🇰🇷 **한국어** | [docs/README.ko.md](docs/README.ko.md) | 한국어 전체 가이드 |
+| 🇹🇭 **ไทย** | [docs/README.th.md](docs/README.th.md) | คู่มือภาษาไทยฉบับเต็ม |
 
 ---
 
 ## What is this?
 
-`vrchat-udon-mcp` is a **stdio MCP server** that indexes, searches, and validates UdonSharp documentation from the `agent-skills-vrc-udon` repository at runtime. No hardcoded docs — the remote repo is the single source of truth.
+`vrchat-udon-mcp` is a **stdio MCP server** that indexes, searches, and validates UdonSharp documentation from the `agent-skills-vrc-lcg-udon` repository at runtime. No hardcoded docs — the remote repo is the single source of truth.
 
 | | |
 |---|---|
-| **18 MCP tools** | Search, explain, validate, templates, SDK matrix |
+| **20 MCP tools** | Search, explain, validate, compiler inspection, templates, SDK matrix |
 | **Dynamic resources** | Skills, rules, cheatsheets, templates |
 | **Live indexing** | MiniSearch with weighted ranking + file watcher |
 | **IDE support** | Cursor, Claude Desktop, ChatGPT Desktop |
+
+Set `LCG_UDONSHARP_PATH` to your local `com.logiccuteguy.lcgudonsharp` package directory to enable compiler indexing. Personal absolute paths do not belong in the tracked configuration.
 
 ---
 
@@ -90,4 +93,5 @@ See [docs/mcp-config.example.json](docs/mcp-config.example.json) and the languag
 
 ## License
 
-[MIT](LICENSE) — Documentation and skills by [niaka3dayo/agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon). MCP server by [MauDevVR](https://github.com/MauDevVR).
+[MIT](LICENSE) — Documentation and skills by [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon). MCP server by [MauDevVR](https://github.com/MauDevVR).
+LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg

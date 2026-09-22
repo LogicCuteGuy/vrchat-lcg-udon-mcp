@@ -1,10 +1,10 @@
 # VRChat Udon MCP
 
-[Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that exposes the [agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon) repository as an MCP interface for UdonSharp development in VRChat.
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that exposes the [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) repository as an MCP interface for UdonSharp development in VRChat.
 
-**The `agent-skills-vrc-udon` repository is the single source of truth.** This MCP does not ship hardcoded documentation — it indexes, searches, and validates content from that repo dynamically.
+**The `agent-skills-vrc-lcg-udon` repository is the single source of truth.** This MCP does not ship hardcoded documentation — it indexes, searches, and validates content from that repo dynamically.
 
-[← Back to landing page](../README.md) · [Español](README.es.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+[← Back to landing page](../README.md) · [Español](README.es.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [ไทย](README.th.md)
 
 ---
 
@@ -28,7 +28,7 @@
 
 ## Features
 
-- **18 MCP tools** driven entirely by the knowledge repository
+- **20 MCP tools** covering the knowledge repository and an optional local compiler package
 - **Dynamic MCP resources** — skills, rules, cheatsheets, templates, SDK matrix
 - Recursive indexing of `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - MiniSearch with weighted ranking: heading > title > body
@@ -55,7 +55,7 @@
 git clone https://github.com/MauDevVR/vrchat-udon-mcp.git
 cd vrchat-udon-mcp
 pnpm install
-pnpm update-docs    # Clone / update agent-skills-vrc-udon
+pnpm update-docs    # Clone / update agent-skills-vrc-lcg-udon
 pnpm build-index    # Build the search index
 pnpm build
 ```
@@ -69,11 +69,15 @@ Edit `config.json` at the project root:
 ```json
 {
   "repository": {
-    "url": "https://github.com/niaka3dayo/agent-skills-vrc-udon",
-    "path": "./agent-skills-vrc-udon",
-    "branch": "main"
+    "url": "https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon",
+    "path": "./agent-skills-vrc-lcg-udon",
+    "branch": "dev"
   },
-  "sdkVersion": "3.10.4",
+  "compiler": {
+    "profile": "lcgudonsharp",
+    "packagePath": null
+  },
+  "sdkVersion": "3.10.5",
   "language": "en",
   "watch": true,
   "indexPath": "./data/indexes",
@@ -95,25 +99,27 @@ Edit `config.json` at the project root:
 | `repository.url` | Source repository URL |
 | `repository.path` | Local path to the cloned repo |
 | `repository.branch` | Branch to sync |
+| `compiler.profile` | Validation profile: `upstream` or `lcgudonsharp` |
+| `compiler.packagePath` | Optional local compiler package indexed by compiler tools |
 | `sdkVersion` | Default SDK version for filters |
 | `watch` | Rebuild index when repo files change |
 | `indexPath` | Persisted index directory |
 
-You can also point to another config file with the `UDON_MCP_CONFIG` environment variable.
+You can point to another config file with `UDON_MCP_CONFIG`. Set `LCG_UDONSHARP_PATH` in your local MCP environment to the compiler package directory; this keeps personal absolute paths out of tracked files. `compiler.packagePath` remains available for private, untracked configurations.
 
 ---
 
 ## Repository sync
 
 ```bash
-# Clone or update agent-skills-vrc-udon and rebuild index
+# Clone or update agent-skills-vrc-lcg-udon and rebuild index
 pnpm update-docs
 
 # Rebuild index only (no git pull)
 pnpm build-index
 ```
 
-The repo is cloned to `./agent-skills-vrc-udon` by default. New files are indexed automatically — no code changes required.
+The repo is cloned to `./agent-skills-vrc-lcg-udon` by default. New files are indexed automatically — no code changes required.
 
 ---
 
@@ -183,7 +189,7 @@ No local paths required. `npx` downloads the repo, runs `prepare` (compiles Type
 
 With pnpm: `pnpm dlx github:MauDevVR/vrchat-udon-mcp`.
 
-**Note:** First run compiles the project and may take a while. On first start the server automatically clones `agent-skills-vrc-udon` next to the packaged `config.json` (npx cache) and rebuilds the search index. No `UDON_MCP_CONFIG` or personal paths required. For local development, `pnpm update-docs` remains the recommended way to refresh docs.
+**Note:** First run compiles the project and may take a while. On first start the server automatically clones `agent-skills-vrc-lcg-udon` next to the packaged `config.json` (npx cache) and rebuilds the search index. No `UDON_MCP_CONFIG` or personal paths required. For local development, `pnpm update-docs` remains the recommended way to refresh docs.
 
 ### Option C — Global install
 
@@ -262,6 +268,8 @@ Configure a stdio MCP server with any option above (avoid absolute paths with yo
 
 | Tool | Description |
 |------|-------------|
+| `compiler_info` | Report configured compiler package metadata, SDK target, and features |
+| `search_compiler` | Search the configured compiler README, examples, and C# source |
 | `search_documentation` | Keyword / fuzzy search across all documentation |
 | `explain_topic` | Explanation with citations (path, heading, line numbers) |
 | `list_skills` | Auto-discover all skills |
@@ -298,7 +306,8 @@ Configure a stdio MCP server with any option above (avoid absolute paths with yo
 ## Architecture
 
 ```
-agent-skills-vrc-udon/     ← Source of truth (git clone)
+agent-skills-vrc-lcg-udon/     ← Source of truth (git clone)
+LCGUdonSharp package/      ← Optional local compiler docs and source
         ↓
 KnowledgeParser            ← Recursively indexes all files
         ↓
@@ -307,7 +316,7 @@ DocsRepository             ← Persists index in data/indexes/
 SearchEngine (MiniSearch)  ← Weighted search ranking
 RuleParser                 ← Rules from hooks/ and rules/ tables
         ↓
-MCP Tools (18)             ← AI agent interface
+MCP Tools (20)             ← AI agent interface
 ```
 
 ---
@@ -328,7 +337,7 @@ MCP Tools (18)             ← AI agent interface
 
 ## Credits
 
-- Documentation and skills: [niaka3dayo/agent-skills-vrc-udon](https://github.com/niaka3dayo/agent-skills-vrc-udon)
+- Documentation and skills: [LogicCuteGuy/agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon)
 - MCP server: [MauDevVR/vrchat-udon-mcp](https://github.com/MauDevVR/vrchat-udon-mcp)
 
 ---
