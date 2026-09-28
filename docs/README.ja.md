@@ -29,7 +29,7 @@ VRChat の UdonSharp 開発向けに、[agent-skills-vrc-lcg-udon](https://githu
 ## 機能
 
 - ナレッジリポジトリと任意のローカルコンパイラー向け **20 個の MCP ツール**
-- [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp) 対応 — インターフェース、async、`await`、ジェネリクス、`LCGPacket` を検証
+- [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp) 対応 — 修正済みパッケージインストール、`LCGNetworkZone` 内で同期フィールドを持たない Continuous behaviour、任意のネイティブ同期パススルー、インターフェース、async、`await`、ジェネリクス、`LCGPacket` をサポート
 - **動的 MCP リソース** — skills、rules、cheatsheets、templates、SDK マトリクス
 - `skills/`、`rules/`、`references/`、`templates/`、`hooks/`、`assets/` の再帰的インデックス化
 - MiniSearch による重み付き検索：見出し > タイトル > 本文

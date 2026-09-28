@@ -9,14 +9,14 @@
 
 # VRChat Udon MCP
 
-[![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp/releases)
+[![Version](https://img.shields.io/badge/version-2.2.1-blue.svg)](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg)](https://nodejs.org/)
 [![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-purple.svg)](https://modelcontextprotocol.io)
 
 **MCP server for VRChat UdonSharp development** — exposes the [agent-skills-vrc-lcg-udon](https://github.com/LogicCuteGuy/agent-skills-vrc-lcg-udon) knowledge base and [LCGUdonSharp](https://github.com/LogicCuteGuy/LCGUdonSharp) compiler support to AI assistants via the [Model Context Protocol](https://modelcontextprotocol.io).
 
-Version 2.2.0 supports LCGUdonSharp 0.3.1 and adds compiler metadata/search tools plus compiler-aware validation for interfaces, async methods, `await`, generics, and `LCGPacket`.
+Version 2.2.1 supports LCGUdonSharp 0.3.5, including corrected package installation, Continuous behaviours without synced fields in `LCGNetworkZone`, and opt-in native sync passthrough. Compiler metadata/search and compiler-aware validation continue to cover interfaces, async methods, `await`, generics, and `LCGPacket`.
 
 ---
 

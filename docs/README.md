@@ -1,6 +1,6 @@
 # Documentation index
 
-Full guides for [**vrchat-lcg-udon-mcp 2.2.0**](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp), with LCGUdonSharp 0.3.1 support, in six languages:
+Full guides for [**vrchat-lcg-udon-mcp 2.2.1**](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp), with LCGUdonSharp 0.3.5 support, in six languages:
 
 | Language | File |
 |----------|------|

@@ -29,7 +29,7 @@ Serveur [Model Context Protocol (MCP)](https://modelcontextprotocol.io) qui expo
 ## Fonctionnalités
 
 - **20 outils MCP** pour le dépôt de connaissances et un compilateur local facultatif
-- Prise en charge de [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp), avec validation des interfaces, méthodes async, `await`, génériques et `LCGPacket`
+- Prise en charge de [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp), avec installation corrigée, behaviours Continuous sans champs synchronisés dans `LCGNetworkZone`, passthrough natif facultatif et validation des interfaces, méthodes async, `await`, génériques et `LCGPacket`
 - **Ressources MCP dynamiques** — skills, règles, cheatsheets, templates, matrice SDK
 - Indexation récursive de `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - Recherche MiniSearch avec pondération : titre de section > titre > corps

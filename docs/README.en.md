@@ -29,7 +29,7 @@
 ## Features
 
 - **20 MCP tools** covering the knowledge repository and an optional local compiler package
-- [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp) support with validation for interfaces, async methods, `await`, generics, and `LCGPacket`
+- [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp) support, including corrected package installation, Continuous behaviours without synced fields in `LCGNetworkZone`, opt-in native sync passthrough, and validation for interfaces, async methods, `await`, generics, and `LCGPacket`
 - **Dynamic MCP resources** — skills, rules, cheatsheets, templates, SDK matrix
 - Recursive indexing of `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - MiniSearch with weighted ranking: heading > title > body

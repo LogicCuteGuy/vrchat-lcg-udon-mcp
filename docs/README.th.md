@@ -29,7 +29,7 @@
 ## คุณสมบัติ
 
 - **เครื่องมือ MCP 20 ตัว** ครอบคลุมคลังความรู้และแพ็กเกจคอมไพเลอร์เฉพาะที่ (ไม่บังคับ)
-- รองรับ [LCGUdonSharp 0.3.1](https://github.com/LogicCuteGuy/LCGUdonSharp) พร้อมการตรวจสอบ interface, เมธอด async, `await`, generic และ `LCGPacket`
+- รองรับ [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp) รวมถึงการติดตั้งแพ็กเกจที่แก้ไขแล้ว, Continuous behaviour ที่ไม่มีฟิลด์ซิงก์ภายใน `LCGNetworkZone`, native sync passthrough แบบเลือกใช้ และการรองรับ interface, async, `await`, generic กับ `LCGPacket`
 - **ทรัพยากร MCP แบบไดนามิก** — สกิล กฎ เช็ตชีต เทมเพลต เมทริกซ์ SDK
 - การทำดัชนีแบบเรียกซ้ำของ `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - MiniSearch พร้อมการจัดอันดับแบบถ่วงน้ำหนัก: หัวข้อ > ชื่อเรื่อง > เนื้อหา
