@@ -9,7 +9,7 @@ import { registerTools } from './tools/register.js';
 export function createServer(container: ServiceContainer): McpServer {
   const server = new McpServer({
     name: 'vrchat-udon-mcp',
-    version: '2.0.0',
+    version: '2.2.2',
   });
 
   registerTools(server, container);

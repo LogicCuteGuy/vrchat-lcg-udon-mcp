@@ -29,7 +29,7 @@
 ## Features
 
 - **20 MCP tools** covering the knowledge repository and an optional local compiler package
-- [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp) support, including corrected package installation, Continuous behaviours without synced fields in `LCGNetworkZone`, opt-in native sync passthrough, and validation for interfaces, async methods, `await`, generics, and `LCGPacket`
+- MCP **2.2.2** uses [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6) as its documentation baseline: late-join snapshot recovery, ownership repair after disconnects, batched object motion, packet-binding recovery after domain reload, and native/LCG networking examples
 - **Dynamic MCP resources** — skills, rules, cheatsheets, templates, SDK matrix
 - Recursive indexing of `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - MiniSearch with weighted ranking: heading > title > body
@@ -107,6 +107,10 @@ Edit `config.json` at the project root:
 | `indexPath` | Persisted index directory |
 
 You can point to another config file with `UDON_MCP_CONFIG`. Set `LCG_UDONSHARP_PATH` in your local MCP environment to the compiler package directory; this keeps personal absolute paths out of tracked files. `compiler.packagePath` remains available for private, untracked configurations.
+
+For LCGUdonSharp 0.3.6, update through VCC/ALCOM or install the named `com.logiccuteguy.lcgudonsharp-0.3.6.zip` release asset; GitHub source archives are developer checkouts. Let Unity finish setup, recompile UdonSharp programs, and rebuild worlds: older builds cannot decode the new motion batch envelope. Manual packet networking remains experimental, and native sync passthrough remains instance-wide.
+
+Restart the MCP after updating the local package to refresh `compiler_info` and `search_compiler`. `validate_code` performs static rule checks; it does not verify Unity compilation, late-join recovery, or real network throughput.
 
 ---
 

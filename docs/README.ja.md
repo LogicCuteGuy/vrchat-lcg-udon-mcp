@@ -29,7 +29,7 @@ VRChat の UdonSharp 開発向けに、[agent-skills-vrc-lcg-udon](https://githu
 ## 機能
 
 - ナレッジリポジトリと任意のローカルコンパイラー向け **20 個の MCP ツール**
-- [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp) 対応 — 修正済みパッケージインストール、`LCGNetworkZone` 内で同期フィールドを持たない Continuous behaviour、任意のネイティブ同期パススルー、インターフェース、async、`await`、ジェネリクス、`LCGPacket` をサポート
+- MCP **2.2.2** の文書は [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6) が基準です。途中参加時のスナップショット復旧、切断後の所有権修復、オブジェクト移動のバッチ送信、ドメイン再読み込み後のパケットバインディング復旧、ネイティブ/LCG ネットワーク例を扱います
 - **動的 MCP リソース** — skills、rules、cheatsheets、templates、SDK マトリクス
 - `skills/`、`rules/`、`references/`、`templates/`、`hooks/`、`assets/` の再帰的インデックス化
 - MiniSearch による重み付き検索：見出し > タイトル > 本文
@@ -107,6 +107,10 @@ pnpm build
 | `indexPath` | 永続化インデックスの保存先 |
 
 別の設定ファイルには `UDON_MCP_CONFIG` を使用できます。`LCG_UDONSHARP_PATH` をローカルの `com.logiccuteguy.lcgudonsharp` パッケージに設定してください。`compiler.packagePath` は非追跡のプライベート設定でも使用できます。
+
+LCGUdonSharp 0.3.6 は VCC/ALCOM で更新するか、リリース添付の `com.logiccuteguy.lcgudonsharp-0.3.6.zip` をインストールしてください。GitHub のソースアーカイブは開発用です。Unity のセットアップ完了後、UdonSharp プログラムを再コンパイルし、ワールドを再ビルドしてください。古いビルドは新しい移動バッチ形式をデコードできません。手動パケット通信は実験段階で、ネイティブ同期パススルーはインスタンス全体に配信されます。
+
+ローカルパッケージ更新後に MCP を再起動すると、`compiler_info` と `search_compiler` が更新されます。`validate_code` は静的ルール検査であり、Unity コンパイル、途中参加時の復旧、実際のネットワーク性能は検証しません。
 
 ---
 

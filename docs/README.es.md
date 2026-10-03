@@ -29,7 +29,7 @@ Servidor [Model Context Protocol (MCP)](https://modelcontextprotocol.io) que exp
 ## Características
 
 - **20 herramientas MCP** para el repositorio de conocimiento y un compilador local opcional
-- Compatibilidad con [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp), incluida la instalación corregida, behaviours Continuous sin campos sincronizados en `LCGNetworkZone`, passthrough nativo opcional y validación de interfaces, async, `await`, genéricos y `LCGPacket`
+- MCP **2.2.2** usa [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6) como referencia documental: recuperación de snapshots al entrar tarde, reparación de propiedad tras desconexiones, movimiento de objetos por lotes, recuperación de enlaces de paquetes tras recargar el dominio y ejemplos de red nativa/LCG
 - **Recursos MCP dinámicos** (skills, rules, cheatsheets, templates, matriz SDK)
 - Indexación recursiva de `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - Búsqueda MiniSearch con ranking: encabezado > título > cuerpo
@@ -107,6 +107,10 @@ Edita `config.json` en la raíz del proyecto:
 | `indexPath` | Carpeta del índice persistido |
 
 También puedes usar `UDON_MCP_CONFIG` para otro archivo. Define `LCG_UDONSHARP_PATH` con la ruta local de `com.logiccuteguy.lcgudonsharp`; `compiler.packagePath` queda disponible para configuraciones privadas no versionadas.
+
+Actualiza LCGUdonSharp 0.3.6 mediante VCC/ALCOM o instala el archivo de release `com.logiccuteguy.lcgudonsharp-0.3.6.zip`; los archivos de código fuente de GitHub son copias para desarrollo. Deja terminar la configuración de Unity, recompila los programas UdonSharp y reconstruye los mundos: las builds antiguas no decodifican los nuevos lotes de movimiento. La red manual por paquetes sigue siendo experimental; el passthrough de sincronización nativa sigue abarcando toda la instancia.
+
+Reinicia el MCP después de actualizar el paquete local para renovar `compiler_info` y `search_compiler`. `validate_code` comprueba reglas estáticas; no verifica la compilación en Unity, la recuperación al entrar tarde ni el rendimiento real de la red.
 
 ---
 

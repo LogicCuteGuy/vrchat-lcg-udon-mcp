@@ -29,7 +29,7 @@ VRChat UdonSharp 개발을 위해 [agent-skills-vrc-lcg-udon](https://github.com
 ## 기능
 
 - 지식 저장소와 선택적 로컬 컴파일러를 위한 **20개의 MCP 도구**
-- [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp) 지원 — 수정된 패키지 설치, `LCGNetworkZone` 안에서 동기화 필드가 없는 Continuous behaviour, 선택적 네이티브 동기화 패스스루, 인터페이스, async, `await`, 제네릭, `LCGPacket` 지원
+- MCP **2.2.2** 문서는 [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6)을 기준으로 합니다. 늦은 참가자의 스냅샷 복구, 연결 해제 후 소유권 복구, 객체 이동 일괄 전송, 도메인 재로드 후 패킷 바인딩 복구, 네이티브/LCG 네트워킹 예제를 다룹니다
 - **동적 MCP 리소스** — skills, rules, cheatsheets, templates, SDK 매트릭스
 - `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/` 재귀 인덱싱
 - MiniSearch 가중치 검색: 제목(heading) > 타이틀 > 본문
@@ -107,6 +107,10 @@ pnpm build
 | `indexPath` | 영속 인덱스 디렉터리 |
 
 다른 설정 파일은 `UDON_MCP_CONFIG`로 지정할 수 있습니다. `LCG_UDONSHARP_PATH`를 로컬 `com.logiccuteguy.lcgudonsharp` 패키지로 설정하세요. `compiler.packagePath`는 추적하지 않는 비공개 설정에서도 사용할 수 있습니다.
+
+LCGUdonSharp 0.3.6은 VCC/ALCOM으로 업데이트하거나 릴리스에 첨부된 `com.logiccuteguy.lcgudonsharp-0.3.6.zip`을 설치하세요. GitHub 소스 아카이브는 개발용입니다. Unity 설정이 완료되면 UdonSharp 프로그램을 다시 컴파일하고 월드를 다시 빌드하세요. 이전 빌드는 새 이동 일괄 전송 형식을 해석할 수 없습니다. 수동 패킷 네트워킹은 실험 단계이며 네이티브 동기화 패스스루는 인스턴스 전체로 전송됩니다.
+
+로컬 패키지 업데이트 후 MCP를 재시작하면 `compiler_info`와 `search_compiler`가 갱신됩니다. `validate_code`는 정적 규칙 검사이며 Unity 컴파일, 늦은 참가자의 복구, 실제 네트워크 처리량을 검증하지 않습니다.
 
 ---
 

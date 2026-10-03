@@ -1,6 +1,6 @@
 # Documentation index
 
-Full guides for [**vrchat-lcg-udon-mcp 2.2.1**](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp), with LCGUdonSharp 0.3.5 support, in six languages:
+Full guides for [**vrchat-lcg-udon-mcp 2.2.2**](https://github.com/LogicCuteGuy/vrchat-lcg-udon-mcp), using [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6) as the documentation baseline, in six languages:
 
 | Language | File |
 |----------|------|
@@ -29,3 +29,7 @@ pnpm build-index    # rebuild search index
 The clone lands in `./agent-skills-vrc-lcg-udon` by default (configurable in `config.json`).
 
 Set `LCG_UDONSHARP_PATH` to a local `com.logiccuteguy.lcgudonsharp` package to enable the `compiler_info` and `search_compiler` tools.
+
+LCGUdonSharp 0.3.6 adds late-join snapshot recovery, ownership repair after disconnects, batched object motion, packet-binding recovery after domain reload, and native/LCG networking examples. Install through VCC/ALCOM or the named `com.logiccuteguy.lcgudonsharp-0.3.6.zip` asset, then let Unity finish setup, recompile UdonSharp programs, and rebuild worlds. Older builds cannot decode the new motion batches. Manual packet networking remains experimental; native sync passthrough remains instance-wide.
+
+Restart the MCP after updating the local compiler package. Its validation is static and does not establish Unity or VRChat runtime correctness.

@@ -6,7 +6,7 @@ export const SERVER_KEY = 'vrchat-udon';
 
 export const PORTABLE_VRCHAT_UDON_ENTRY = {
   command: 'npx',
-  args: ['-y', 'github:MauDevVR/vrchat-udon-mcp'],
+  args: ['-y', 'github:LogicCuteGuy/vrchat-lcg-udon-mcp'],
 } as const;
 
 export type McpServerEntry = {

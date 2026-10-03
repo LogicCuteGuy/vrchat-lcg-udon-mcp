@@ -29,7 +29,7 @@ Serveur [Model Context Protocol (MCP)](https://modelcontextprotocol.io) qui expo
 ## Fonctionnalités
 
 - **20 outils MCP** pour le dépôt de connaissances et un compilateur local facultatif
-- Prise en charge de [LCGUdonSharp 0.3.5](https://github.com/LogicCuteGuy/LCGUdonSharp), avec installation corrigée, behaviours Continuous sans champs synchronisés dans `LCGNetworkZone`, passthrough natif facultatif et validation des interfaces, méthodes async, `await`, génériques et `LCGPacket`
+- MCP **2.2.2** utilise [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6) comme référence documentaire : récupération des snapshots à l'arrivée tardive, réparation de propriété après déconnexion, mouvement des objets par lots, restauration des liaisons de paquets après rechargement du domaine et exemples réseau natifs/LCG
 - **Ressources MCP dynamiques** — skills, règles, cheatsheets, templates, matrice SDK
 - Indexation récursive de `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - Recherche MiniSearch avec pondération : titre de section > titre > corps
@@ -107,6 +107,10 @@ Modifiez `config.json` à la racine du projet :
 | `indexPath` | Dossier de l'index persisté |
 
 `UDON_MCP_CONFIG` permet de choisir un autre fichier. Définissez `LCG_UDONSHARP_PATH` vers le package local `com.logiccuteguy.lcgudonsharp` ; `compiler.packagePath` reste disponible pour les configurations privées non suivies.
+
+Mettez à jour LCGUdonSharp 0.3.6 via VCC/ALCOM ou installez l'archive de release `com.logiccuteguy.lcgudonsharp-0.3.6.zip` ; les archives de code source GitHub sont destinées au développement. Laissez Unity terminer la configuration, recompilez les programmes UdonSharp et reconstruisez les mondes : les anciennes builds ne décodent pas les nouveaux lots de mouvement. Le réseau manuel par paquets reste expérimental ; le passthrough de synchronisation native reste à l'échelle de l'instance entière.
+
+Redémarrez le MCP après la mise à jour du package local pour actualiser `compiler_info` et `search_compiler`. `validate_code` vérifie des règles statiques ; il ne valide ni la compilation Unity, ni la récupération à l'arrivée tardive, ni le débit réseau réel.
 
 ---
 

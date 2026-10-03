@@ -29,6 +29,13 @@ describe('shouldRunInstall', () => {
 });
 
 describe('mergeVrchatUdonEntry', () => {
+  it('installs the LogicCuteGuy fork documented in the README', () => {
+    expect(mergeVrchatUdonEntry({}).mcpServers?.['vrchat-udon']).toEqual({
+      command: 'npx',
+      args: ['-y', 'github:LogicCuteGuy/vrchat-lcg-udon-mcp'],
+    });
+  });
+
   it('creates mcpServers when config is empty/missing', () => {
     expect(mergeVrchatUdonEntry(undefined)).toEqual({
       mcpServers: { 'vrchat-udon': { ...PORTABLE_VRCHAT_UDON_ENTRY } },
