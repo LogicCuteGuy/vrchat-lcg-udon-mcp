@@ -29,7 +29,8 @@ Serveur [Model Context Protocol (MCP)](https://modelcontextprotocol.io) qui expo
 ## Fonctionnalités
 
 - **20 outils MCP** pour le dépôt de connaissances et un compilateur local facultatif
-- MCP **2.2.2** utilise [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6) comme référence documentaire : récupération des snapshots à l'arrivée tardive, réparation de propriété après déconnexion, mouvement des objets par lots, restauration des liaisons de paquets après rechargement du domaine et exemples réseau natifs/LCG
+- MCP **2.2.3** utilise [LCGUdonSharp 0.3.7](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.7) comme référence documentaire : récupération des snapshots à l'arrivée tardive, réparation de propriété après déconnexion, mouvement des objets par lots, restauration des liaisons de paquets après rechargement du domaine et exemples réseau natifs/LCG
+- En 0.3.7, les assets `ScriptableObject` personnalisés assignés dans l'Inspector deviennent des snapshots Udon en lecture seule. Les champs sérialisés typés et hérités sont lisibles ; les tableaux renvoient des copies défensives et les références Inspector sont préservées lors de la lecture du heap vers les proxies. Les écritures, casts non pris en charge, propriétés, créations à l'exécution, snapshots synchronisés et assets de données imbriqués sont refusés. Importez les exemples facultatifs après la configuration du compilateur pour la [boutique interactive](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.7/Example/ScriptableObjects/README.md).
 - **Ressources MCP dynamiques** — skills, règles, cheatsheets, templates, matrice SDK
 - Indexation récursive de `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - Recherche MiniSearch avec pondération : titre de section > titre > corps
@@ -108,7 +109,7 @@ Modifiez `config.json` à la racine du projet :
 
 `UDON_MCP_CONFIG` permet de choisir un autre fichier. Définissez `LCG_UDONSHARP_PATH` vers le package local `com.logiccuteguy.lcgudonsharp` ; `compiler.packagePath` reste disponible pour les configurations privées non suivies.
 
-Mettez à jour LCGUdonSharp 0.3.6 via VCC/ALCOM ou installez l'archive de release `com.logiccuteguy.lcgudonsharp-0.3.6.zip` ; les archives de code source GitHub sont destinées au développement. Laissez Unity terminer la configuration, recompilez les programmes UdonSharp et reconstruisez les mondes : les anciennes builds ne décodent pas les nouveaux lots de mouvement. Le réseau manuel par paquets reste expérimental ; le passthrough de synchronisation native reste à l'échelle de l'instance entière.
+Mettez à jour LCGUdonSharp 0.3.7 via VCC/ALCOM ou installez l'archive de release `com.logiccuteguy.lcgudonsharp-0.3.7.zip` ; les archives de code source GitHub sont destinées au développement. Laissez Unity terminer la configuration, recompilez les programmes UdonSharp et reconstruisez les mondes : les anciennes builds ne décodent pas les nouveaux lots de mouvement. Le réseau manuel par paquets reste expérimental ; le passthrough de synchronisation native reste à l'échelle de l'instance entière.
 
 Redémarrez le MCP après la mise à jour du package local pour actualiser `compiler_info` et `search_compiler`. `validate_code` vérifie des règles statiques ; il ne valide ni la compilation Unity, ni la récupération à l'arrivée tardive, ni le débit réseau réel.
 

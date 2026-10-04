@@ -29,7 +29,8 @@
 ## Features
 
 - **20 MCP tools** covering the knowledge repository and an optional local compiler package
-- MCP **2.2.2** uses [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6) as its documentation baseline: late-join snapshot recovery, ownership repair after disconnects, batched object motion, packet-binding recovery after domain reload, and native/LCG networking examples
+- MCP **2.2.3** uses [LCGUdonSharp 0.3.7](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.7) as its documentation baseline: late-join snapshot recovery, ownership repair after disconnects, batched object motion, packet-binding recovery after domain reload, and native/LCG networking examples
+- Custom `ScriptableObject` assets assigned in the Inspector become read-only Udon snapshots in 0.3.7. Typed serialized and inherited fields are readable; arrays return defensive copies, and Inspector references survive proxy readback. Writes, unsupported casts, properties, runtime creation, synced snapshots, and nested data assets are rejected. Import the optional examples after compiler setup for the [interactive shop example](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.7/Example/ScriptableObjects/README.md).
 - **Dynamic MCP resources** — skills, rules, cheatsheets, templates, SDK matrix
 - Recursive indexing of `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - MiniSearch with weighted ranking: heading > title > body
@@ -108,7 +109,7 @@ Edit `config.json` at the project root:
 
 You can point to another config file with `UDON_MCP_CONFIG`. Set `LCG_UDONSHARP_PATH` in your local MCP environment to the compiler package directory; this keeps personal absolute paths out of tracked files. `compiler.packagePath` remains available for private, untracked configurations.
 
-For LCGUdonSharp 0.3.6, update through VCC/ALCOM or install the named `com.logiccuteguy.lcgudonsharp-0.3.6.zip` release asset; GitHub source archives are developer checkouts. Let Unity finish setup, recompile UdonSharp programs, and rebuild worlds: older builds cannot decode the new motion batch envelope. Manual packet networking remains experimental, and native sync passthrough remains instance-wide.
+For LCGUdonSharp 0.3.7, update through VCC/ALCOM or install the named `com.logiccuteguy.lcgudonsharp-0.3.7.zip` release asset; GitHub source archives are developer checkouts. Let Unity finish setup, recompile UdonSharp programs, and rebuild worlds: older builds cannot decode the new motion batch envelope. Manual packet networking remains experimental, and native sync passthrough remains instance-wide.
 
 Restart the MCP after updating the local package to refresh `compiler_info` and `search_compiler`. `validate_code` performs static rule checks; it does not verify Unity compilation, late-join recovery, or real network throughput.
 

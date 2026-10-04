@@ -29,7 +29,8 @@
 ## คุณสมบัติ
 
 - **เครื่องมือ MCP 20 ตัว** ครอบคลุมคลังความรู้และแพ็กเกจคอมไพเลอร์เฉพาะที่ (ไม่บังคับ)
-- เอกสาร MCP **2.2.2** อ้างอิง [LCGUdonSharp 0.3.6](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.6): การกู้คืน snapshot สำหรับผู้เล่นที่เข้าทีหลัง, การซ่อม ownership หลังผู้เล่นหลุด, การส่งการเคลื่อนที่ของวัตถุแบบ batch, การกู้คืน packet binding หลัง domain reload และตัวอย่างเครือข่าย native/LCG
+- เอกสาร MCP **2.2.3** อ้างอิง [LCGUdonSharp 0.3.7](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.7): การกู้คืน snapshot สำหรับผู้เล่นที่เข้าทีหลัง, การซ่อม ownership หลังผู้เล่นหลุด, การส่งการเคลื่อนที่ของวัตถุแบบ batch, การกู้คืน packet binding หลัง domain reload และตัวอย่างเครือข่าย native/LCG
+- ใน 0.3.7 สามารถใช้ asset แบบ custom `ScriptableObject` ที่กำหนดผ่าน Inspector เป็น Udon snapshot แบบอ่านอย่างเดียวได้ อ่านฟิลด์ serialized ที่มีชนิดข้อมูลและฟิลด์ที่สืบทอดได้ โดยการอ่าน array จะคืน defensive copy และการอ่าน heap กลับไปยัง proxy จะรักษาการอ้างอิง asset ใน Inspector การเขียนฟิลด์, cast ที่ไม่รองรับ, property, การสร้างตอน runtime, synced snapshot และ data asset ที่ซ้อนกันจะถูกปฏิเสธ หลังติดตั้งคอมไพเลอร์เสร็จให้ import ตัวอย่างเสริมเพื่อใช้ [ร้านค้าแบบโต้ตอบ](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.7/Example/ScriptableObjects/README.md)
 - **ทรัพยากร MCP แบบไดนามิก** — สกิล กฎ เช็ตชีต เทมเพลต เมทริกซ์ SDK
 - การทำดัชนีแบบเรียกซ้ำของ `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/`
 - MiniSearch พร้อมการจัดอันดับแบบถ่วงน้ำหนัก: หัวข้อ > ชื่อเรื่อง > เนื้อหา
@@ -108,7 +109,7 @@ pnpm build
 
 คุณชี้ไปยังไฟล์ config อื่นได้ผ่าน `UDON_MCP_CONFIG` ตั้งค่า `LCG_UDONSHARP_PATH` ในสภาพแวดล้อม MCP ในเครื่องของคุณให้ชี้ไปที่ไดเรกทอรีแพ็กเกจคอมไพเลอร์ เพื่อไม่ให้พาธส่วนตัวแบบ absolute หลุดเข้าไปในไฟล์ที่ track ไว้ `compiler.packagePath` ยังใช้ได้สำหรับ config ส่วนตัวที่ไม่ได้ track
 
-อัปเดต LCGUdonSharp 0.3.6 ผ่าน VCC/ALCOM หรือติดตั้งไฟล์แนบ release ชื่อ `com.logiccuteguy.lcgudonsharp-0.3.6.zip` ส่วน source archive ของ GitHub เป็นไฟล์สำหรับพัฒนา รอให้ Unity ตั้งค่าเสร็จ จากนั้นคอมไพล์โปรแกรม UdonSharp ใหม่และ rebuild world เพราะ build เก่าอ่านรูปแบบ motion batch ใหม่ไม่ได้ ระบบ manual packet networking ยังเป็น experimental และ native sync passthrough ยังส่งข้อมูลทั่วทั้ง instance
+อัปเดต LCGUdonSharp 0.3.7 ผ่าน VCC/ALCOM หรือติดตั้งไฟล์แนบ release ชื่อ `com.logiccuteguy.lcgudonsharp-0.3.7.zip` ส่วน source archive ของ GitHub เป็นไฟล์สำหรับพัฒนา รอให้ Unity ตั้งค่าเสร็จ จากนั้นคอมไพล์โปรแกรม UdonSharp ใหม่และ rebuild world เพราะ build เก่าอ่านรูปแบบ motion batch ใหม่ไม่ได้ ระบบ manual packet networking ยังเป็น experimental และ native sync passthrough ยังส่งข้อมูลทั่วทั้ง instance
 
 หลังอัปเดตแพ็กเกจในเครื่อง ให้เริ่ม MCP ใหม่เพื่อรีเฟรช `compiler_info` และ `search_compiler` เครื่องมือ `validate_code` ตรวจสอบกฎแบบ static เท่านั้น ไม่ได้ตรวจการคอมไพล์ใน Unity การกู้คืนของผู้เล่นที่เข้าทีหลัง หรือประสิทธิภาพเครือข่ายจริง
 
