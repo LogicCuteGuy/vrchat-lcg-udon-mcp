@@ -29,8 +29,8 @@ VRChat UdonSharp 개발을 위해 [agent-skills-vrc-lcg-udon](https://github.com
 ## 기능
 
 - 지식 저장소와 선택적 로컬 컴파일러를 위한 **20개의 MCP 도구**
-- MCP **2.2.3** 문서는 [LCGUdonSharp 0.3.7](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.7)을 기준으로 합니다. 늦은 참가자의 스냅샷 복구, 연결 해제 후 소유권 복구, 객체 이동 일괄 전송, 도메인 재로드 후 패킷 바인딩 복구, 네이티브/LCG 네트워킹 예제를 다룹니다
-- 0.3.7에서는 Inspector에 할당한 사용자 정의 `ScriptableObject` 에셋을 읽기 전용 Udon 스냅샷으로 변환합니다. 타입이 지정된 직렬화 필드와 상속 필드를 읽을 수 있으며 배열은 방어적 복사본을 반환하고 힙에서 프록시로 읽을 때 Inspector 참조가 유지됩니다. 쓰기, 지원하지 않는 캐스트, 프로퍼티, 런타임 생성, 동기화 스냅샷, 중첩 데이터 에셋은 거부됩니다. 컴파일러 설정 후 선택적 예제를 가져오면 [대화형 상점 예제](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.7/Example/ScriptableObjects/README.md)를 사용할 수 있습니다.
+- MCP **2.2.4** 문서는 [LCGUdonSharp 0.3.8](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.8)을 기준으로 합니다. 늦은 참가자의 스냅샷 복구, 연결 해제 후 소유권 복구, 객체 이동 일괄 전송, 도메인 재로드 후 패킷 바인딩 복구, 네이티브/LCG 네트워킹 예제를 다룹니다
+- 0.3.8의 사용자 정의 `ScriptableObject`는 중첩 단일/배열 참조와 기본 타입에 할당한 파생 에셋을 지원합니다. 읽기 전용 스냅샷은 런타임 타입 태그로 `is`, 선언 패턴, `as`, 검사된 명시적 캐스트를 지원합니다. 상속 필드, Inspector 할당, 배열의 방어적 복사는 유지됩니다. 순환 그래프와 128개 에셋을 넘는 중첩은 거부되며 쓰기, 프로퍼티/메서드, 런타임 생성, 동기화 스냅샷, 미지원 캐스트는 여전히 지원하지 않습니다. 컴파일러 설정 후 선택적 예제를 가져오세요: [상점과 장비 가이드](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.8/Example/ScriptableObjects/README.md). 타입 태그와 필드 배치가 변경되었으므로 모든 Udon 프로그램을 다시 빌드하고 씬/프리팹 데이터를 다시 베이크하세요.
 - **동적 MCP 리소스** — skills, rules, cheatsheets, templates, SDK 매트릭스
 - `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/` 재귀 인덱싱
 - MiniSearch 가중치 검색: 제목(heading) > 타이틀 > 본문
@@ -109,7 +109,7 @@ pnpm build
 
 다른 설정 파일은 `UDON_MCP_CONFIG`로 지정할 수 있습니다. `LCG_UDONSHARP_PATH`를 로컬 `com.logiccuteguy.lcgudonsharp` 패키지로 설정하세요. `compiler.packagePath`는 추적하지 않는 비공개 설정에서도 사용할 수 있습니다.
 
-LCGUdonSharp 0.3.7은 VCC/ALCOM으로 업데이트하거나 릴리스에 첨부된 `com.logiccuteguy.lcgudonsharp-0.3.7.zip`을 설치하세요. GitHub 소스 아카이브는 개발용입니다. Unity 설정이 완료되면 UdonSharp 프로그램을 다시 컴파일하고 월드를 다시 빌드하세요. 이전 빌드는 새 이동 일괄 전송 형식을 해석할 수 없습니다. 수동 패킷 네트워킹은 실험 단계이며 네이티브 동기화 패스스루는 인스턴스 전체로 전송됩니다.
+LCGUdonSharp 0.3.8은 VCC/ALCOM으로 업데이트하거나 릴리스에 첨부된 `com.logiccuteguy.lcgudonsharp-0.3.8.zip`을 설치하세요. GitHub 소스 아카이브는 개발용입니다. Unity 설정이 완료되면 UdonSharp 프로그램을 다시 컴파일하고 월드를 다시 빌드하세요. 이전 빌드는 새 이동 일괄 전송 형식을 해석할 수 없습니다. 수동 패킷 네트워킹은 실험 단계이며 네이티브 동기화 패스스루는 인스턴스 전체로 전송됩니다.
 
 로컬 패키지 업데이트 후 MCP를 재시작하면 `compiler_info`와 `search_compiler`가 갱신됩니다. `validate_code`는 정적 규칙 검사이며 Unity 컴파일, 늦은 참가자의 복구, 실제 네트워크 처리량을 검증하지 않습니다.
 
