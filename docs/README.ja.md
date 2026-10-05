@@ -29,8 +29,9 @@ VRChat の UdonSharp 開発向けに、[agent-skills-vrc-lcg-udon](https://githu
 ## 機能
 
 - ナレッジリポジトリと任意のローカルコンパイラー向け **20 個の MCP ツール**
-- MCP **2.2.4** の文書は [LCGUdonSharp 0.3.8](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.8) が基準です。途中参加時のスナップショット復旧、切断後の所有権修復、オブジェクト移動のバッチ送信、ドメイン再読み込み後のパケットバインディング復旧、ネイティブ/LCG ネットワーク例を扱います
-- 0.3.8 のカスタム `ScriptableObject` は、ネストした単一参照・配列参照と、基底型に割り当てた派生アセットに対応します。読み取り専用スナップショットの実行時型タグにより `is`、宣言パターン、`as`、検査付き明示的キャストを使用できます。継承フィールド、Inspector の割り当て、配列の防御的コピーは維持されます。循環参照と 128 アセットを超えるネストは拒否され、書き込み、プロパティ・メソッド、実行時生成、同期スナップショット、未対応のキャストは引き続き未対応です。設定完了後に任意の例をインポートしてください：[ショップ・装備ガイド](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.8/Example/ScriptableObjects/README.md)。型タグとフィールド配置が変わったため、更新後は全 Udon プログラムを再ビルドし、シーン・プレハブのデータを再ベイクしてください。
+- MCP **2.2.5** の文書は [LCGUdonSharp 0.3.9](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.9) が基準です。途中参加時のスナップショット復旧、切断後の所有権修復、オブジェクト移動のバッチ送信、ドメイン再読み込み後のパケットバインディング復旧、ネイティブ/LCG ネットワーク例を扱います
+- LCGUdonSharp 0.3.9 は Unity Localization の String/Asset Tables を Udon にベイクし、ローカル言語選択、地域・既定言語へのフォールバック、ドロップダウン、変更コールバックに対応します。テキスト、スプライト、テクスチャ、音声、プレハブの言語別バリアントを扱えます。Smart Strings はスカラー変数、数値書式、choose、対応する複数形のみで、Unity の全構文ではありません。未対応構文はビルド前の検証で失敗します。依存関係：Unity Localization 1.4.5、Scriptable Build Pipeline 1.21.25。英語・タイ語・日本語の例と従来の JSON ツールを含みます。[設定ガイド](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.9/Example/Localization/UnityLocalization.md)。言語選択はローカルで永続化されず、アセットはワールドに含まれ、Addressables からロードしません。
+- 0.3.9 のカスタム `ScriptableObject` は、ネストした単一参照・配列参照と、基底型に割り当てた派生アセットに対応します。読み取り専用スナップショットの実行時型タグにより `is`、宣言パターン、`as`、検査付き明示的キャストを使用できます。継承フィールド、Inspector の割り当て、配列の防御的コピーは維持されます。循環参照と 128 アセットを超えるネストは拒否され、書き込み、プロパティ・メソッド、実行時生成、同期スナップショット、未対応のキャストは引き続き未対応です。設定完了後に任意の例をインポートしてください：[ショップ・装備ガイド](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.9/Example/ScriptableObjects/README.md)。型タグとフィールド配置が変わったため、更新後は全 Udon プログラムを再ビルドし、シーン・プレハブのデータを再ベイクしてください。
 - **動的 MCP リソース** — skills、rules、cheatsheets、templates、SDK マトリクス
 - `skills/`、`rules/`、`references/`、`templates/`、`hooks/`、`assets/` の再帰的インデックス化
 - MiniSearch による重み付き検索：見出し > タイトル > 本文
@@ -109,7 +110,7 @@ pnpm build
 
 別の設定ファイルには `UDON_MCP_CONFIG` を使用できます。`LCG_UDONSHARP_PATH` をローカルの `com.logiccuteguy.lcgudonsharp` パッケージに設定してください。`compiler.packagePath` は非追跡のプライベート設定でも使用できます。
 
-LCGUdonSharp 0.3.8 は VCC/ALCOM で更新するか、リリース添付の `com.logiccuteguy.lcgudonsharp-0.3.8.zip` をインストールしてください。GitHub のソースアーカイブは開発用です。Unity のセットアップ完了後、UdonSharp プログラムを再コンパイルし、ワールドを再ビルドしてください。古いビルドは新しい移動バッチ形式をデコードできません。手動パケット通信は実験段階で、ネイティブ同期パススルーはインスタンス全体に配信されます。
+LCGUdonSharp 0.3.9 は VCC/ALCOM で更新するか、リリース添付の `com.logiccuteguy.lcgudonsharp-0.3.9.zip` をインストールしてください。GitHub のソースアーカイブは開発用です。Unity のセットアップ完了後、UdonSharp プログラムを再コンパイルし、ワールドを再ビルドしてください。古いビルドは新しい移動バッチ形式をデコードできません。手動パケット通信は実験段階で、ネイティブ同期パススルーはインスタンス全体に配信されます。
 
 ローカルパッケージ更新後に MCP を再起動すると、`compiler_info` と `search_compiler` が更新されます。`validate_code` は静的ルール検査であり、Unity コンパイル、途中参加時の復旧、実際のネットワーク性能は検証しません。
 

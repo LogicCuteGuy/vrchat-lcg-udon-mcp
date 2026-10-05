@@ -29,8 +29,9 @@ VRChat UdonSharp 개발을 위해 [agent-skills-vrc-lcg-udon](https://github.com
 ## 기능
 
 - 지식 저장소와 선택적 로컬 컴파일러를 위한 **20개의 MCP 도구**
-- MCP **2.2.4** 문서는 [LCGUdonSharp 0.3.8](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.8)을 기준으로 합니다. 늦은 참가자의 스냅샷 복구, 연결 해제 후 소유권 복구, 객체 이동 일괄 전송, 도메인 재로드 후 패킷 바인딩 복구, 네이티브/LCG 네트워킹 예제를 다룹니다
-- 0.3.8의 사용자 정의 `ScriptableObject`는 중첩 단일/배열 참조와 기본 타입에 할당한 파생 에셋을 지원합니다. 읽기 전용 스냅샷은 런타임 타입 태그로 `is`, 선언 패턴, `as`, 검사된 명시적 캐스트를 지원합니다. 상속 필드, Inspector 할당, 배열의 방어적 복사는 유지됩니다. 순환 그래프와 128개 에셋을 넘는 중첩은 거부되며 쓰기, 프로퍼티/메서드, 런타임 생성, 동기화 스냅샷, 미지원 캐스트는 여전히 지원하지 않습니다. 컴파일러 설정 후 선택적 예제를 가져오세요: [상점과 장비 가이드](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.8/Example/ScriptableObjects/README.md). 타입 태그와 필드 배치가 변경되었으므로 모든 Udon 프로그램을 다시 빌드하고 씬/프리팹 데이터를 다시 베이크하세요.
+- MCP **2.2.5** 문서는 [LCGUdonSharp 0.3.9](https://github.com/LogicCuteGuy/LCGUdonSharp/releases/tag/0.3.9)을 기준으로 합니다. 늦은 참가자의 스냅샷 복구, 연결 해제 후 소유권 복구, 객체 이동 일괄 전송, 도메인 재로드 후 패킷 바인딩 복구, 네이티브/LCG 네트워킹 예제를 다룹니다
+- LCGUdonSharp 0.3.9는 Unity Localization String/Asset Tables를 Udon에 베이크하여 로컬 언어 선택, 지역/기본 언어 폴백, 드롭다운과 변경 콜백을 지원합니다. 텍스트, 스프라이트, 텍스처, 오디오, 프리팹 변형을 현지화합니다. Smart Strings는 스칼라 변수, 숫자 형식, choose, 지원되는 복수형만 처리하며 Unity 전체 구문은 아닙니다. 미지원 구문은 빌드 전 검증에서 실패합니다. 의존성: Unity Localization 1.4.5, Scriptable Build Pipeline 1.21.25. 영어/태국어/일본어 예제와 기존 JSON 도구를 포함합니다. [설정 가이드](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.9/Example/Localization/UnityLocalization.md). 언어 선택은 로컬이며 저장되지 않고, 에셋은 월드에 포함되며 Addressables로 로드하지 않습니다.
+- 0.3.9의 사용자 정의 `ScriptableObject`는 중첩 단일/배열 참조와 기본 타입에 할당한 파생 에셋을 지원합니다. 읽기 전용 스냅샷은 런타임 타입 태그로 `is`, 선언 패턴, `as`, 검사된 명시적 캐스트를 지원합니다. 상속 필드, Inspector 할당, 배열의 방어적 복사는 유지됩니다. 순환 그래프와 128개 에셋을 넘는 중첩은 거부되며 쓰기, 프로퍼티/메서드, 런타임 생성, 동기화 스냅샷, 미지원 캐스트는 여전히 지원하지 않습니다. 컴파일러 설정 후 선택적 예제를 가져오세요: [상점과 장비 가이드](https://github.com/LogicCuteGuy/LCGUdonSharp/blob/0.3.9/Example/ScriptableObjects/README.md). 타입 태그와 필드 배치가 변경되었으므로 모든 Udon 프로그램을 다시 빌드하고 씬/프리팹 데이터를 다시 베이크하세요.
 - **동적 MCP 리소스** — skills, rules, cheatsheets, templates, SDK 매트릭스
 - `skills/`, `rules/`, `references/`, `templates/`, `hooks/`, `assets/` 재귀 인덱싱
 - MiniSearch 가중치 검색: 제목(heading) > 타이틀 > 본문
@@ -109,7 +110,7 @@ pnpm build
 
 다른 설정 파일은 `UDON_MCP_CONFIG`로 지정할 수 있습니다. `LCG_UDONSHARP_PATH`를 로컬 `com.logiccuteguy.lcgudonsharp` 패키지로 설정하세요. `compiler.packagePath`는 추적하지 않는 비공개 설정에서도 사용할 수 있습니다.
 
-LCGUdonSharp 0.3.8은 VCC/ALCOM으로 업데이트하거나 릴리스에 첨부된 `com.logiccuteguy.lcgudonsharp-0.3.8.zip`을 설치하세요. GitHub 소스 아카이브는 개발용입니다. Unity 설정이 완료되면 UdonSharp 프로그램을 다시 컴파일하고 월드를 다시 빌드하세요. 이전 빌드는 새 이동 일괄 전송 형식을 해석할 수 없습니다. 수동 패킷 네트워킹은 실험 단계이며 네이티브 동기화 패스스루는 인스턴스 전체로 전송됩니다.
+LCGUdonSharp 0.3.9은 VCC/ALCOM으로 업데이트하거나 릴리스에 첨부된 `com.logiccuteguy.lcgudonsharp-0.3.9.zip`을 설치하세요. GitHub 소스 아카이브는 개발용입니다. Unity 설정이 완료되면 UdonSharp 프로그램을 다시 컴파일하고 월드를 다시 빌드하세요. 이전 빌드는 새 이동 일괄 전송 형식을 해석할 수 없습니다. 수동 패킷 네트워킹은 실험 단계이며 네이티브 동기화 패스스루는 인스턴스 전체로 전송됩니다.
 
 로컬 패키지 업데이트 후 MCP를 재시작하면 `compiler_info`와 `search_compiler`가 갱신됩니다. `validate_code`는 정적 규칙 검사이며 Unity 컴파일, 늦은 참가자의 복구, 실제 네트워크 처리량을 검증하지 않습니다.
 
